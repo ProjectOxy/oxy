@@ -70,6 +70,18 @@ describe("Tree", () => {
     expect(chevron("Documents").className).not.toBe(chevron("Project").className);
   });
 
+  test("only items revealed by expanding after mount play the expand animation", () => {
+    render(<Files defaultExpandedKeys={["documents"]} />);
+
+    const initial = classesOf(row("Project"));
+    fireEvent.click(slotOf(row("Documents"), "chevron")!);
+    fireEvent.click(slotOf(row("Documents"), "chevron")!);
+
+    const revealed = classesOf(row("Project"));
+    expect(revealed.size).toBeGreaterThan(initial.size);
+    expect([...initial].every((name) => revealed.has(name))).toBe(true);
+  });
+
   test("multiple selection adds checkboxes and actions report the item", () => {
     const onSelectionChange = vi.fn();
     const onAction = vi.fn();
