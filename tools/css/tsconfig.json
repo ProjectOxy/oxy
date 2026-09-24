@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["src"],
+  "references": [
+    {
+      "path": "../../packages/tokens"
+    },
+    {
+      "path": "../../packages/motion"
+    },
+    {
+      "path": "../../packages/icons"
+    },
+    {
+      "path": "../../packages/utilities"
+    },
+    {
+      "path": "../../packages/material-theme"
+    },
+    {
+      "path": "../../packages/ui"
+    }
+  ],
+  "compilerOptions": {
+    "types": ["vite/client"]
+  }
+}

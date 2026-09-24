@@ -1,0 +1,30 @@
+{
+  "name": "@oxy/utilities",
+  "version": "0.0.0",
+  "description": "Token-driven utility class layer for Oxy UI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectOxy/ui.git",
+    "directory": "packages/utilities"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    },
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack"
+  }
+}

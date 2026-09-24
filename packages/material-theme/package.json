@@ -1,0 +1,39 @@
+{
+  "name": "@oxy/material-theme",
+  "version": "0.0.0",
+  "description": "Material Design 3 Expressive theme for Oxy UI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectOxy/ui.git",
+    "directory": "packages/material-theme"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    },
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack"
+  },
+  "dependencies": {
+    "@oxy/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@stylexjs/stylex": "catalog:"
+  },
+  "peerDependencies": {
+    "@stylexjs/stylex": "catalog:"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@oxy/icons",
+  "version": "0.0.0",
+  "description": "Material Symbols icon component for Oxy UI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectOxy/ui.git",
+    "directory": "packages/icons"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    },
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack"
+  },
+  "devDependencies": {
+    "@stylexjs/stylex": "catalog:",
+    "@types/react": "catalog:",
+    "react": "catalog:"
+  },
+  "peerDependencies": {
+    "@stylexjs/stylex": "catalog:",
+    "react": "catalog:"
+  }
+}

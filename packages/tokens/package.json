@@ -1,0 +1,40 @@
+{
+  "name": "@oxy/tokens",
+  "version": "0.0.0",
+  "description": "Primitive, semantic and component design tokens for Oxy UI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectOxy/ui.git",
+    "directory": "packages/tokens"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./color.stylex": "./src/color.stylex.ts",
+    "./shape.stylex": "./src/shape.stylex.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./color.stylex": "./dist/color.stylex.js",
+      "./shape.stylex": "./dist/shape.stylex.js",
+      "./package.json": "./package.json"
+    },
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack"
+  },
+  "devDependencies": {
+    "@stylexjs/stylex": "catalog:"
+  },
+  "peerDependencies": {
+    "@stylexjs/stylex": "catalog:"
+  }
+}

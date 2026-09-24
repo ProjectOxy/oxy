@@ -1,0 +1,23 @@
+{
+  "name": "@oxy/css",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Builds the single static StyleX CSS file for every Oxy UI package",
+  "type": "module",
+  "scripts": {
+    "build": "vp build"
+  },
+  "dependencies": {
+    "@oxy/icons": "workspace:*",
+    "@oxy/material-theme": "workspace:*",
+    "@oxy/motion": "workspace:*",
+    "@oxy/tokens": "workspace:*",
+    "@oxy/ui": "workspace:*",
+    "@oxy/utilities": "workspace:*"
+  },
+  "devDependencies": {
+    "@stylexjs/stylex": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

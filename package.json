@@ -1,0 +1,53 @@
+{
+  "name": "oxy-ui-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "tools/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "check": "vp check",
+    "lint": "vp lint",
+    "fmt": "vp fmt",
+    "typecheck": "tsc -b",
+    "test": "vp test",
+    "build": "vp run -r build",
+    "ready": "vp check && tsc -b && vp test && vp run -r build"
+  },
+  "devDependencies": {
+    "@stylexjs/unplugin": "catalog:",
+    "@types/node": "^26.1.1",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "overrides": {
+    "vite": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "version": "1.4.2",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "catalog": {
+    "@internationalized/date": "^3.12.4",
+    "@internationalized/number": "^3.6.8",
+    "@stylexjs/stylex": "^0.19.1",
+    "@stylexjs/unplugin": "^0.19.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "react": "^19.3.0",
+    "react-aria-components": "^1.21.1",
+    "react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.2",
+    "vite-plus": "0.3.2"
+  }
+}

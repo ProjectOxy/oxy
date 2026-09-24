@@ -1,0 +1,38 @@
+{
+  "name": "@oxy/motion",
+  "version": "0.0.0",
+  "description": "Motion tokens and animation helpers for Oxy UI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectOxy/ui.git",
+    "directory": "packages/motion"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./motion.stylex": "./src/motion.stylex.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./motion.stylex": "./dist/motion.stylex.js",
+      "./package.json": "./package.json"
+    },
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack"
+  },
+  "devDependencies": {
+    "@stylexjs/stylex": "catalog:"
+  },
+  "peerDependencies": {
+    "@stylexjs/stylex": "catalog:"
+  }
+}
