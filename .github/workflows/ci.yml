@@ -48,6 +48,8 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.63.0-noble
     steps:
       - uses: actions/checkout@v5
+      - name: Install unzip (needed by setup-bun inside the image)
+        run: apt-get update -qq && apt-get install -y -qq unzip
       - uses: ./.github/actions/setup
       - uses: actions/download-artifact@v5
         with:
