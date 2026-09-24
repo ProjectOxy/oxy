@@ -2,6 +2,7 @@ import { color } from "@oxy/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import { useLayoutEffect, type ReactNode } from "react";
 import { OxyProvider, type Scheme } from "./oxy-provider.tsx";
+import "virtual:oxy/utilities.css";
 import "./preview.css";
 
 export type Direction = "ltr" | "rtl";
