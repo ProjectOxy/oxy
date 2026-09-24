@@ -120,7 +120,18 @@ Keep the React Aria API whole:
 - Slot names are camelCase in `classNames` and kebab-case in `data-slot` on the element.
 - Do not consume React Aria contexts yourself; the wrapped component already does, so slot contexts (`<ButtonContext value={{ slots: … }}>`) keep working.
 
-### 6. Tests
+### 6. Compound components
+
+Fields, groups and sliders are compositions of React Aria parts (`<TextField><Label /><Input /><Text slot="description" /><FieldError /></TextField>`). The parent owns the look of its parts and hands it down through a context, so the composition API stays exactly React Aria's:
+
+- The parent renders its children through `composeRenderProps` and wraps them in `FieldPartsContext` with `styled.part(slot, state, styles)` for each part (`label`, `container`, `input`, `description`, `fieldError`). A part carries the parent's StyleX styles plus its `classNames` slot, resolved against the parent's render state.
+- The part component passes the context entry to `useStyled` as `part`. It is merged into the same `stylex.props` call after the part's own styles, so the parent wins per property and utilities still win over both.
+- State the parent knows (focus within, invalid, disabled) reaches the parts as StyleX variables set on the parent (`src/field/field.stylex.ts`) or as `stylex.when.ancestor(…, fieldMarker)` conditions. Write `when` calls inline in `stylex.create`; the compiler does not follow them through constants.
+- Wrap the children in `UnstyledScope` with the parent's `unstyled` prop, so an unstyled parent unstyles every part.
+- `styled.variants(state)` returns the parsed modifiers for children that depend on them; `styled.slotProps(slot, state, styles)` returns `className` and `style` for inner elements with dynamic StyleX styles.
+- A part used on its own falls back to its standalone look: an `Input` outside a field is an outlined M3 input.
+
+### 7. Tests
 
 Tests live in `packages/ui/tests`:
 
@@ -130,7 +141,7 @@ Tests live in `packages/ui/tests`:
 
 Run `bun run test` (both environments) and `bun run check`.
 
-### 7. Stories and visual baselines
+### 8. Stories and visual baselines
 
 Write a `Default` story plus one story per axis the component has (variants × tones, sizes × shapes, density, utilities overriding the base, slots, `className` function, unstyled, RTL). Every story is screenshotted in light/dark × LTR/RTL; regenerate baselines with `bun run visual:update`, which runs Playwright inside the same Docker image CI uses.
 
