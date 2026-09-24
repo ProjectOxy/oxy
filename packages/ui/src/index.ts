@@ -1,7 +1,7 @@
 export * from "./autocomplete/index.ts";
 export * from "./button/index.ts";
-export * from "./checkbox-group/index.ts";
 export * from "./checkbox/index.ts";
+export * from "./checkbox-group/index.ts";
 export * from "./combo-box/index.ts";
 export {
   joinClassNames,
@@ -43,10 +43,10 @@ export * from "./split-button/index.ts";
 export * from "./switch/index.ts";
 export * from "./table/index.ts";
 export * from "./tag-group/index.ts";
+export * from "./text/index.ts";
 export * from "./text-area/index.ts";
 export * from "./text-field/index.ts";
-export * from "./text/index.ts";
-export * from "./toggle-button-group/index.ts";
 export * from "./toggle-button/index.ts";
+export * from "./toggle-button-group/index.ts";
 export * from "./toolbar/index.ts";
 export * from "./tree/index.ts";
