@@ -44,7 +44,7 @@ export function Meter({ className, classNames, unstyled, children, ...props }: M
   return (
     <AriaMeter {...props} className={styled.className}>
       {composeRenderProps(children, (children, state) => {
-        const { variant } = styled.variants(state);
+        const { variant } = styled.variants(state) ?? meterVariants.defaults;
         const indicator = (
           <ProgressIndicator
             variant={variant}

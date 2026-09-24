@@ -19,7 +19,7 @@ import {
   styleOf,
   stylexCss,
   utilitiesCss,
-} from "./support/browser.tsx";
+} from "./browser.tsx";
 
 beforeAll(() => loadCss(stylexCss, utilitiesCss));
 afterEach(cleanup);

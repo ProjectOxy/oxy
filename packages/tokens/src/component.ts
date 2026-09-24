@@ -5,6 +5,7 @@ const buttonSize = (
   iconSize: string,
   squareRadius: string,
   pressedRadius: string,
+  innerRadius: string,
   outlineWidth: string,
 ) => ({
   height,
@@ -13,6 +14,7 @@ const buttonSize = (
   "icon-size": iconSize,
   "square-radius": squareRadius,
   "pressed-radius": pressedRadius,
+  "inner-radius": innerRadius,
   "outline-width": outlineWidth,
 });
 
@@ -20,6 +22,20 @@ const sliderSize = (trackHeight: string, handleHeight: string, trackRadius: stri
   "track-height": trackHeight,
   "handle-height": handleHeight,
   "track-radius": trackRadius,
+});
+
+const fabSize = (
+  height: string,
+  iconSize: string,
+  radius: string,
+  paddingInline: string,
+  gap: string,
+) => ({
+  height,
+  "icon-size": iconSize,
+  radius,
+  "padding-inline": paddingInline,
+  gap,
 });
 
 export const componentTokens = {
@@ -35,9 +51,36 @@ export const componentTokens = {
     step: "4px",
   },
   button: {
-    xs: buttonSize("32px", "{space.md}", "{space.xs}", "20px", "{radius.md}", "{radius.sm}", "1px"),
-    sm: buttonSize("40px", "{space.lg}", "{space.sm}", "20px", "{radius.md}", "{radius.sm}", "1px"),
-    md: buttonSize("56px", "{space.xl}", "{space.sm}", "24px", "{radius.lg}", "{radius.md}", "1px"),
+    xs: buttonSize(
+      "32px",
+      "{space.md}",
+      "{space.xs}",
+      "20px",
+      "{radius.md}",
+      "{radius.sm}",
+      "{radius.xs}",
+      "1px",
+    ),
+    sm: buttonSize(
+      "40px",
+      "{space.lg}",
+      "{space.sm}",
+      "20px",
+      "{radius.md}",
+      "{radius.sm}",
+      "{radius.sm}",
+      "1px",
+    ),
+    md: buttonSize(
+      "56px",
+      "{space.xl}",
+      "{space.sm}",
+      "24px",
+      "{radius.lg}",
+      "{radius.md}",
+      "{radius.sm}",
+      "1px",
+    ),
     lg: buttonSize(
       "96px",
       "{space.3xl}",
@@ -45,9 +88,49 @@ export const componentTokens = {
       "32px",
       "{radius.xl}",
       "{radius.lg}",
+      "{radius.lg}",
       "2px",
     ),
-    xl: buttonSize("136px", "64px", "{space.lg}", "40px", "{radius.xl}", "{radius.lg}", "3px"),
+    xl: buttonSize(
+      "136px",
+      "64px",
+      "{space.lg}",
+      "40px",
+      "{radius.xl}",
+      "{radius.lg}",
+      "{radius.lg-increased}",
+      "3px",
+    ),
+  },
+  "button-group": {
+    "connected-gap": "{space.2xs}",
+    "xs-gap": "18px",
+    "sm-gap": "{space.md}",
+    "md-gap": "{space.sm}",
+    "lg-gap": "{space.sm}",
+    "xl-gap": "{space.sm}",
+  },
+  fab: {
+    sm: fabSize("56px", "24px", "{radius.lg}", "{space.lg}", "{space.md}"),
+    md: fabSize("80px", "28px", "{radius.lg-increased}", "26px", "{space.md}"),
+    lg: fabSize("96px", "36px", "{radius.xl}", "28px", "{space.lg}"),
+    elevation: "{elevation.level3}",
+    "hovered-elevation": "{elevation.level4}",
+  },
+  "fab-menu": {
+    "close-size": "56px",
+    "item-height": "56px",
+    "item-padding-inline": "{space.xl}",
+    "item-gap": "{space.sm}",
+    "item-icon-size": "24px",
+    gap: "{space.xs}",
+  },
+  toolbar: {
+    height: "64px",
+    padding: "{space.sm}",
+    gap: "{space.xs}",
+    "floating-radius": "{radius.full}",
+    "floating-elevation": "{elevation.level3}",
   },
   "text-field": {
     height: "56px",

@@ -2,7 +2,7 @@ import { createTheme } from "@oxy/tokens";
 import { generateUtilities } from "@oxy/utilities";
 import { render, type RenderResult } from "@testing-library/react";
 import type { ReactNode } from "react";
-import { OxyProvider } from "../../src/index.ts";
+import { OxyProvider } from "../src/index.ts";
 
 export const stylexCss = await fetch("/stylex.css").then((response) => response.text());
 export const utilitiesCss = generateUtilities();
@@ -42,3 +42,16 @@ export const mixedOnSurface = (percent: number) =>
 export const styleOf = (element: Element) => getComputedStyle(element);
 
 export const rectOf = (element: Element) => element.getBoundingClientRect();
+
+export const slotOf = (element: Element, slot: string) =>
+  element.querySelector(`[data-slot="${slot}"]`) as HTMLElement;
+
+export const corners = (element: Element) => {
+  const style = getComputedStyle(element);
+  return [
+    style.borderStartStartRadius,
+    style.borderStartEndRadius,
+    style.borderEndStartRadius,
+    style.borderEndEndRadius,
+  ];
+};

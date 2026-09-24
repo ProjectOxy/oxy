@@ -32,4 +32,11 @@ export {
   type Variants,
   type VariantSelection,
 } from "./core/variants.ts";
+export * from "./fab/index.ts";
+export * from "./file-trigger/index.ts";
+export * from "./link/index.ts";
 export * from "./provider/index.ts";
+export * from "./split-button/index.ts";
+export * from "./toggle-button/index.ts";
+export * from "./toggle-button-group/index.ts";
+export * from "./toolbar/index.ts";

@@ -1,47 +1,22 @@
-import { createTheme } from "@oxy/tokens";
-import { generateUtilities } from "@oxy/utilities";
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, screen } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { ButtonContext } from "react-aria-components";
 import { afterEach, beforeAll, describe, expect, test } from "vite-plus/test";
 import { userEvent } from "vite-plus/test/browser";
-import { Button, OxyProvider } from "../src/index.ts";
+import { Button } from "../src/index.ts";
+import {
+  colorOf,
+  loadCss,
+  renderStill,
+  slotOf as slotIn,
+  stylexCss,
+  tokenValue,
+  utilitiesCss,
+} from "./browser.tsx";
 
-const stylexCss = await fetch("/stylex.css").then((response) => response.text());
-const utilitiesCss = generateUtilities();
-const still = createTheme({ motion: { enabled: "0" } });
-
-function loadCss(...sheets: string[]) {
-  for (const style of document.head.querySelectorAll("style[data-test]")) style.remove();
-  for (const css of sheets) {
-    const style = document.createElement("style");
-    style.dataset.test = "";
-    style.textContent = css;
-    document.head.append(style);
-  }
-}
-
-const renderStill = (children: ReactNode, locale?: string) =>
-  render(
-    <OxyProvider theme={still} locale={locale}>
-      {children}
-    </OxyProvider>,
-  );
-
-function tokenValue(property: string, value: string) {
-  const probe = document.createElement("div");
-  probe.style.setProperty(property, value);
-  document.body.append(probe);
-  const computed = getComputedStyle(probe).getPropertyValue(property);
-  probe.remove();
-  return computed;
-}
-
-const colorOf = (role: string) => tokenValue("color", `var(--oxy-color-${role})`);
 const button = (name: string) => screen.getByRole("button", { name });
 const styleOf = (name: string) => getComputedStyle(button(name));
-const slotOf = (name: string, slot: string) =>
-  button(name).querySelector(`[data-slot="${slot}"]`) as HTMLElement;
+const slotOf = (name: string, slot: string) => slotIn(button(name), slot);
 
 const Pressed = ({ children }: { children: ReactNode }) => (
   <ButtonContext value={{ isPressed: true }}>{children}</ButtonContext>

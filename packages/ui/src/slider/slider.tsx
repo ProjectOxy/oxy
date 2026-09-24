@@ -394,7 +394,7 @@ export function Slider<T extends number | number[]>({
             <FieldPartsContext value={{ label: styled.part("label", state, []) }}>
               <SliderStyleContext
                 value={{
-                  variants: styled.variants(state),
+                  variants: styled.variants(state) ?? sliderVariants.defaults,
                   classNames: {
                     output: slot("output"),
                     track: slot("track"),

@@ -225,7 +225,7 @@ function useSwitch<State extends SwitchRenderProps>({
   );
 
   const content = composeRenderProps(children, (children: ReactNode, state) => {
-    const variants = styled.variants(state);
+    const variants = styled.variants(state) ?? switchVariants.defaults;
     const track = styled.slot("track", state, trackStyles(variants, state));
     const target = styled.slot("touchTarget", state, [touchTarget.root]);
     const stateLayer = styled.slot("stateLayer", state, [

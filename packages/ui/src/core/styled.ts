@@ -41,8 +41,10 @@ export function useStyled<Groups extends VariantGroups, State, Slot extends stri
       );
     },
     variants: (state: State) =>
-      variants.parse(resolveClassName(className, { ...state, defaultClassName: undefined }))
-        .variants,
+      isUnstyled
+        ? undefined
+        : variants.parse(resolveClassName(className, { ...state, defaultClassName: undefined }))
+            .variants,
     part: (slot: Slot, state: State, partStyles: Styles): Part => ({
       styles: isUnstyled ? undefined : partStyles,
       className: resolveClassName(classNames?.[slot], state),

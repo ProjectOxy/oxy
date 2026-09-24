@@ -22,6 +22,7 @@ export const button = stylex.defineVars({
   "--oxy-button-xs-icon-size": "20px",
   "--oxy-button-xs-square-radius": "var(--oxy-radius-md)",
   "--oxy-button-xs-pressed-radius": "var(--oxy-radius-sm)",
+  "--oxy-button-xs-inner-radius": "var(--oxy-radius-xs)",
   "--oxy-button-xs-outline-width": "1px",
   "--oxy-button-sm-height": "40px",
   "--oxy-button-sm-padding-inline": "var(--oxy-space-lg)",
@@ -29,6 +30,7 @@ export const button = stylex.defineVars({
   "--oxy-button-sm-icon-size": "20px",
   "--oxy-button-sm-square-radius": "var(--oxy-radius-md)",
   "--oxy-button-sm-pressed-radius": "var(--oxy-radius-sm)",
+  "--oxy-button-sm-inner-radius": "var(--oxy-radius-sm)",
   "--oxy-button-sm-outline-width": "1px",
   "--oxy-button-md-height": "56px",
   "--oxy-button-md-padding-inline": "var(--oxy-space-xl)",
@@ -36,6 +38,7 @@ export const button = stylex.defineVars({
   "--oxy-button-md-icon-size": "24px",
   "--oxy-button-md-square-radius": "var(--oxy-radius-lg)",
   "--oxy-button-md-pressed-radius": "var(--oxy-radius-md)",
+  "--oxy-button-md-inner-radius": "var(--oxy-radius-sm)",
   "--oxy-button-md-outline-width": "1px",
   "--oxy-button-lg-height": "96px",
   "--oxy-button-lg-padding-inline": "var(--oxy-space-3xl)",
@@ -43,6 +46,7 @@ export const button = stylex.defineVars({
   "--oxy-button-lg-icon-size": "32px",
   "--oxy-button-lg-square-radius": "var(--oxy-radius-xl)",
   "--oxy-button-lg-pressed-radius": "var(--oxy-radius-lg)",
+  "--oxy-button-lg-inner-radius": "var(--oxy-radius-lg)",
   "--oxy-button-lg-outline-width": "2px",
   "--oxy-button-xl-height": "136px",
   "--oxy-button-xl-padding-inline": "64px",
@@ -50,7 +54,54 @@ export const button = stylex.defineVars({
   "--oxy-button-xl-icon-size": "40px",
   "--oxy-button-xl-square-radius": "var(--oxy-radius-xl)",
   "--oxy-button-xl-pressed-radius": "var(--oxy-radius-lg)",
+  "--oxy-button-xl-inner-radius": "var(--oxy-radius-lg-increased)",
   "--oxy-button-xl-outline-width": "3px",
+});
+
+export const buttonGroup = stylex.defineVars({
+  "--oxy-button-group-connected-gap": "var(--oxy-space-2xs)",
+  "--oxy-button-group-xs-gap": "18px",
+  "--oxy-button-group-sm-gap": "var(--oxy-space-md)",
+  "--oxy-button-group-md-gap": "var(--oxy-space-sm)",
+  "--oxy-button-group-lg-gap": "var(--oxy-space-sm)",
+  "--oxy-button-group-xl-gap": "var(--oxy-space-sm)",
+});
+
+export const fab = stylex.defineVars({
+  "--oxy-fab-sm-height": "56px",
+  "--oxy-fab-sm-icon-size": "24px",
+  "--oxy-fab-sm-radius": "var(--oxy-radius-lg)",
+  "--oxy-fab-sm-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-fab-sm-gap": "var(--oxy-space-md)",
+  "--oxy-fab-md-height": "80px",
+  "--oxy-fab-md-icon-size": "28px",
+  "--oxy-fab-md-radius": "var(--oxy-radius-lg-increased)",
+  "--oxy-fab-md-padding-inline": "26px",
+  "--oxy-fab-md-gap": "var(--oxy-space-md)",
+  "--oxy-fab-lg-height": "96px",
+  "--oxy-fab-lg-icon-size": "36px",
+  "--oxy-fab-lg-radius": "var(--oxy-radius-xl)",
+  "--oxy-fab-lg-padding-inline": "28px",
+  "--oxy-fab-lg-gap": "var(--oxy-space-lg)",
+  "--oxy-fab-elevation": "var(--oxy-elevation-level3)",
+  "--oxy-fab-hovered-elevation": "var(--oxy-elevation-level4)",
+});
+
+export const fabMenu = stylex.defineVars({
+  "--oxy-fab-menu-close-size": "56px",
+  "--oxy-fab-menu-item-height": "56px",
+  "--oxy-fab-menu-item-padding-inline": "var(--oxy-space-xl)",
+  "--oxy-fab-menu-item-gap": "var(--oxy-space-sm)",
+  "--oxy-fab-menu-item-icon-size": "24px",
+  "--oxy-fab-menu-gap": "var(--oxy-space-xs)",
+});
+
+export const toolbar = stylex.defineVars({
+  "--oxy-toolbar-height": "64px",
+  "--oxy-toolbar-padding": "var(--oxy-space-sm)",
+  "--oxy-toolbar-gap": "var(--oxy-space-xs)",
+  "--oxy-toolbar-floating-radius": "var(--oxy-radius-full)",
+  "--oxy-toolbar-floating-elevation": "var(--oxy-elevation-level3)",
 });
 
 export const textField = stylex.defineVars({

@@ -54,7 +54,8 @@ export function ProgressBar({
   return (
     <AriaProgressBar {...props} className={styled.className}>
       {composeRenderProps(children, (children, state) => {
-        const { variant, track, container } = styled.variants(state);
+        const { variant, track, container } =
+          styled.variants(state) ?? progressBarVariants.defaults;
         const indicator = (
           <ProgressIndicator
             variant={variant}
