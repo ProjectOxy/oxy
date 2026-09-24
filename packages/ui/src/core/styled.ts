@@ -37,6 +37,11 @@ export function useStyled<Groups extends VariantGroups, State, Slot extends stri
         parsed.className,
       );
     },
+    variants: (state: State) =>
+      isUnstyled
+        ? undefined
+        : variants.parse(resolveClassName(className, { ...state, defaultClassName: undefined }))
+            .variants,
     slot: (slot: Slot, state: State, slotStyles: StyleXStyles) => {
       const own = resolveClassName(classNames?.[slot], state);
       if (isUnstyled) return own;

@@ -16,14 +16,28 @@
   "exports": {
     ".": "./src/index.ts",
     "./button": "./src/button/index.ts",
+    "./fab": "./src/fab/index.ts",
+    "./file-trigger": "./src/file-trigger/index.ts",
+    "./link": "./src/link/index.ts",
     "./provider": "./src/provider/index.ts",
+    "./split-button": "./src/split-button/index.ts",
+    "./toggle-button": "./src/toggle-button/index.ts",
+    "./toggle-button-group": "./src/toggle-button-group/index.ts",
+    "./toolbar": "./src/toolbar/index.ts",
     "./package.json": "./package.json"
   },
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
       "./button": "./dist/button/index.js",
+      "./fab": "./dist/fab/index.js",
+      "./file-trigger": "./dist/file-trigger/index.js",
+      "./link": "./dist/link/index.js",
       "./provider": "./dist/provider/index.js",
+      "./split-button": "./dist/split-button/index.js",
+      "./toggle-button": "./dist/toggle-button/index.js",
+      "./toggle-button-group": "./dist/toggle-button-group/index.js",
+      "./toolbar": "./dist/toolbar/index.js",
       "./package.json": "./package.json"
     },
     "access": "public"
