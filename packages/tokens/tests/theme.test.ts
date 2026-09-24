@@ -36,6 +36,7 @@ describe("createTheme", () => {
       "--oxy-chip-padding-inline": "var(--oxy-space-lg)",
       "--oxy-card-padding": "var(--oxy-space-lg)",
       "--oxy-text-field-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-table-cell-padding-inline": "var(--oxy-space-lg)",
     });
     expect(resolveTokens(theme.tokens).get("card.padding")).toBe("24px");
   });
