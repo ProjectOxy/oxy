@@ -53,6 +53,92 @@ export const button = stylex.defineVars({
   "--oxy-button-xl-outline-width": "3px",
 });
 
+export const textField = stylex.defineVars({
+  "--oxy-text-field-height": "56px",
+  "--oxy-text-field-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-text-field-gap": "var(--oxy-space-md)",
+  "--oxy-text-field-icon-size": "24px",
+  "--oxy-text-field-radius": "var(--oxy-radius-xs)",
+  "--oxy-text-field-container-color": "var(--oxy-color-surface-container-highest)",
+  "--oxy-text-field-indicator-width": "1px",
+  "--oxy-text-field-focus-indicator-width": "2px",
+  "--oxy-text-field-label-inset": "var(--oxy-space-sm)",
+  "--oxy-text-field-supporting-gap": "var(--oxy-space-xs)",
+});
+
+export const searchField = stylex.defineVars({
+  "--oxy-search-field-height": "56px",
+  "--oxy-search-field-radius": "var(--oxy-radius-full)",
+  "--oxy-search-field-container-color": "var(--oxy-color-surface-container-high)",
+});
+
+export const checkbox = stylex.defineVars({
+  "--oxy-checkbox-size": "18px",
+  "--oxy-checkbox-radius": "2px",
+  "--oxy-checkbox-outline-width": "2px",
+  "--oxy-checkbox-state-layer-size": "40px",
+});
+
+export const radio = stylex.defineVars({
+  "--oxy-radio-size": "20px",
+  "--oxy-radio-dot-size": "10px",
+  "--oxy-radio-outline-width": "2px",
+  "--oxy-radio-state-layer-size": "40px",
+});
+
+export const switchTokens = stylex.defineVars({
+  "--oxy-switch-track-width": "52px",
+  "--oxy-switch-track-height": "32px",
+  "--oxy-switch-outline-width": "2px",
+  "--oxy-switch-handle-size": "16px",
+  "--oxy-switch-selected-handle-size": "24px",
+  "--oxy-switch-pressed-handle-size": "28px",
+  "--oxy-switch-icon-size": "16px",
+  "--oxy-switch-state-layer-size": "40px",
+});
+
+export const slider = stylex.defineVars({
+  "--oxy-slider-xs-track-height": "16px",
+  "--oxy-slider-xs-handle-height": "44px",
+  "--oxy-slider-xs-track-radius": "var(--oxy-radius-sm)",
+  "--oxy-slider-sm-track-height": "24px",
+  "--oxy-slider-sm-handle-height": "44px",
+  "--oxy-slider-sm-track-radius": "var(--oxy-radius-sm)",
+  "--oxy-slider-md-track-height": "40px",
+  "--oxy-slider-md-handle-height": "52px",
+  "--oxy-slider-md-track-radius": "var(--oxy-radius-md)",
+  "--oxy-slider-lg-track-height": "56px",
+  "--oxy-slider-lg-handle-height": "68px",
+  "--oxy-slider-lg-track-radius": "var(--oxy-radius-lg)",
+  "--oxy-slider-xl-track-height": "96px",
+  "--oxy-slider-xl-handle-height": "108px",
+  "--oxy-slider-xl-track-radius": "var(--oxy-radius-xl)",
+  "--oxy-slider-handle-width": "4px",
+  "--oxy-slider-handle-gap": "6px",
+  "--oxy-slider-inner-radius": "2px",
+  "--oxy-slider-stop-size": "4px",
+  "--oxy-slider-value-indicator-height": "44px",
+  "--oxy-slider-vertical-length": "200px",
+});
+
+export const progress = stylex.defineVars({
+  "--oxy-progress-track-height": "4px",
+  "--oxy-progress-gap": "4px",
+  "--oxy-progress-stop-size": "4px",
+  "--oxy-progress-wave-amplitude": "3px",
+  "--oxy-progress-wave-length": "40px",
+  "--oxy-progress-circular-size": "40px",
+  "--oxy-progress-circular-track-width": "4px",
+  "--oxy-progress-loading-size": "48px",
+  "--oxy-progress-loading-indicator-size": "38px",
+});
+
+export const dropZone = stylex.defineVars({
+  "--oxy-drop-zone-padding": "var(--oxy-space-xl)",
+  "--oxy-drop-zone-radius": "var(--oxy-radius-lg)",
+  "--oxy-drop-zone-outline-width": "1px",
+});
+
 export const card = stylex.defineVars({
   "--oxy-card-padding": "var(--oxy-space-lg)",
   "--oxy-card-radius": "var(--oxy-radius-md)",

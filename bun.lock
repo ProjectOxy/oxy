@@ -79,6 +79,7 @@
         "@internationalized/number": "catalog:",
         "@oxy/motion": "workspace:*",
         "@oxy/tokens": "workspace:*",
+        "motion": "catalog:",
         "react-aria": "catalog:",
         "react-aria-components": "catalog:",
       },

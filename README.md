@@ -124,7 +124,7 @@ The full set is about 700 KB (70 KB gzip). With `content` globs the CLI and `vit
 Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. On top it adds:
 
 - **Variants in `className`.** `<Button className="tonal lg secondary square dense px-xl">`: names the component declares (variant, size, tone, shape, density) become StyleX styles, everything else stays in `className` as utility classes. `className` may also be a function of the React Aria render state; its result is parsed the same way.
-- **Slots.** `classNames={{ stateLayer, touchTarget }}` styles the inner parts; each value is a string or a function of the render state.
+- **Slots.** `classNames={{ stateLayer, touchTarget }}` styles the inner parts; each value is a string or a function of the render state. Compound components pass the slots of their React Aria children too: `<TextField classNames={{ label, container, input, description, fieldError }}>` styles the `Label`, `Input` or `Group`, `Text` and `FieldError` inside it.
 - **Unstyled mode.** `unstyled` on a component or on `OxyProvider` drops the theme styles, keeps behaviour and a minimal reset, and passes `className` through untouched.
 - **`OxyProvider`.** `theme` (a `createTheme` result) and `scheme` on any subtree, `locale` for React Aria `I18nProvider` plus `lang`/`dir`, `strings` to override the library's own strings (`useStrings`, plural forms through `Intl.PluralRules`) and `unstyled`. Overlays of the subtree render inside it, so they get its theme and direction.
 
