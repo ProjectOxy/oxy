@@ -1,13 +1,35 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/tokens" },
-    { "path": "packages/motion" },
-    { "path": "packages/icons" },
-    { "path": "packages/utilities" },
-    { "path": "packages/material-theme" },
-    { "path": "packages/ui" },
-    { "path": "tools/css" },
-    { "path": "tsconfig.tools.json" }
+    {
+      "path": "packages/tokens"
+    },
+    {
+      "path": "packages/motion"
+    },
+    {
+      "path": "packages/icons"
+    },
+    {
+      "path": "packages/utilities"
+    },
+    {
+      "path": "packages/material-theme"
+    },
+    {
+      "path": "packages/ui"
+    },
+    {
+      "path": "tools/css"
+    },
+    {
+      "path": "tools/checks"
+    },
+    {
+      "path": "tools/storybook"
+    },
+    {
+      "path": "tsconfig.tools.json"
+    }
   ]
 }

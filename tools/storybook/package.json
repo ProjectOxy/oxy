@@ -1,0 +1,37 @@
+{
+  "name": "@oxy/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Storybook and visual regression suite for Oxy UI",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev --port 6006 --no-open",
+    "storybook:build": "storybook build --output-dir storybook-static",
+    "visual": "playwright test --config visual/playwright.config.ts",
+    "visual:update": "playwright test --config visual/playwright.config.ts --update-snapshots"
+  },
+  "dependencies": {
+    "@oxy/icons": "workspace:*",
+    "@oxy/material-theme": "workspace:*",
+    "@oxy/motion": "workspace:*",
+    "@oxy/tokens": "workspace:*",
+    "@oxy/ui": "workspace:*",
+    "@oxy/utilities": "workspace:*"
+  },
+  "devDependencies": {
+    "@material/material-color-utilities": "^0.4.0",
+    "@playwright/test": "1.63.0",
+    "@storybook/addon-a11y": "^10.6.0",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/react-vite": "^10.6.0",
+    "@stylexjs/stylex": "catalog:",
+    "@stylexjs/unplugin": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "http-server": "^14.1.1",
+    "react": "catalog:",
+    "react-aria-components": "catalog:",
+    "react-dom": "catalog:",
+    "storybook": "^10.6.0"
+  }
+}

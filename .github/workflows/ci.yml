@@ -14,14 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 24
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.4.2
-      - name: Install
-        run: bun install --frozen-lockfile
+      - uses: ./.github/actions/setup
       - name: Lint and format
         run: bun run check
       - name: Typecheck
@@ -34,3 +27,56 @@ jobs:
         with:
           name: oxy-css
           path: dist/oxy.css
+
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup
+      - name: Build Storybook
+        run: bun run storybook:build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: tools/storybook/storybook-static
+
+  visual-regression:
+    needs: storybook
+    runs-on: ubuntu-latest
+    container:
+      # Keep in sync with @playwright/test in tools/storybook/package.json; baselines are rendered in this image.
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install unzip (needed by setup-bun inside the image)
+        run: apt-get update -qq && apt-get install -y -qq unzip
+      - uses: ./.github/actions/setup
+      - uses: actions/download-artifact@v5
+        with:
+          name: storybook-static
+          path: tools/storybook/storybook-static
+      - name: Compare every story in light/dark × LTR/RTL
+        run: bun run visual
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-regression-report
+          path: |
+            tools/storybook/visual/report
+            tools/storybook/visual/test-results
+
+  rac-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup
+      - name: Every react-aria-components component has an @oxy/ui wrapper
+        run: bun run rac-coverage
+
+  token-contrast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup
+      - name: Semantic color pairs pass WCAG AA
+        run: bun run contrast

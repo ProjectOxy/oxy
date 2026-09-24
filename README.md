@@ -13,7 +13,13 @@ React component library on top of [React Aria Components](https://react-spectrum
 | `@oxy/utilities`      | Token-driven utility class layer                                                   |
 | `@oxy/ui`             | Components and M3 compositions, one entry per component (`@oxy/ui/button`)         |
 
-`tools/css` is a private workspace that compiles the StyleX output of every package into a single static file, `dist/oxy.css`.
+Private workspaces under `tools/`:
+
+| Workspace         | Purpose                                                                                   |
+| ----------------- | ----------------------------------------------------------------------------------------- |
+| `tools/css`       | Compiles the StyleX output of every package into a single static file, `dist/oxy.css`     |
+| `tools/storybook` | Storybook (Vite builder) for every component plus the Playwright visual regression suite  |
+| `tools/checks`    | CI checks: React Aria coverage of `@oxy/ui` and WCAG contrast of the semantic color pairs |
 
 ## Requirements
 
@@ -30,10 +36,42 @@ bun run lint         # lint only
 bun run typecheck    # tsc -b over the project references
 bun run test         # vitest across all packages
 bun run build        # build every package (vp pack) and dist/oxy.css
-bun run ready        # everything CI runs, in order
+bun run ready        # everything the verify job runs, in order
+
+bun run storybook        # Storybook dev server on http://localhost:6006
+bun run storybook:build  # static Storybook in tools/storybook/storybook-static
+bun run visual           # visual regressions against the static build (needs the Playwright image, see below)
+bun run visual:update    # rebuild Storybook and re-render every baseline inside the Playwright Docker image
+bun run rac-coverage     # which react-aria-components components still lack an @oxy/ui wrapper
+bun run contrast         # WCAG AA check of the semantic on-X / X color pairs
 ```
 
 Inside a package, `vp pack` builds it and `vp pack --watch` rebuilds on change.
+
+## Storybook
+
+Stories live next to their component (`packages/*/src/**/*.stories.tsx`); foundation stories that belong to no package live in `tools/storybook/stories`. The toolbar exposes four globals that every story is wrapped in:
+
+| Global      | Values                              | Effect                                                                                    |
+| ----------- | ----------------------------------- | ----------------------------------------------------------------------------------------- |
+| `theme`     | `light`, `dark`                     | Color scheme: `dark` applies `materialDarkTheme` from `@oxy/material-theme`               |
+| `direction` | `ltr`, `rtl`                        | `dir` on `<html>` and on the story frame, so logical properties and portals flip together |
+| `seed`      | Baseline, Ocean, Forest, …          | Seed color of the Material scheme; non-baseline seeds are generated on the fly            |
+| `locale`    | `en-US`, `de-DE`, `ru-RU`, `ar-EG`… | Passed to React Aria `I18nProvider`; RTL locales also flip React Aria keyboard behaviour  |
+
+`tools/storybook/src/oxy-provider.tsx` is a stand-in for the `OxyProvider` planned in `@oxy/ui` (theme on a subtree + `I18nProvider`). It keeps the same props (`locale`, `scheme`, `seed`) so the decorator only needs its import swapped once the core lands; seed-based schemes come from `@material/material-color-utilities` and are turned into a theme with `createTheme` from `@oxy/tokens`, whose `vars` are applied inline on the subtree.
+
+Tag a story with `no-visual` to keep it out of the screenshot suite (for example, stories that depend on timers or randomness).
+
+## Visual regressions
+
+`tools/storybook/visual` renders every story from `storybook-static/index.json` in four combinations, theme × direction, and compares each against a baseline in `tools/storybook/visual/__screenshots__`. Baselines are committed and rendered inside `mcr.microsoft.com/playwright:<version>-noble`, the same image the `visual-regression` job runs in, so fonts and Chromium match byte for byte. Run `bun run visual:update` (requires Docker) after an intentional visual change and commit the updated PNGs; bump the image tag in `.github/workflows/ci.yml` together with `@playwright/test`. The HTML report of a failed run is uploaded as the `visual-regression-report` artifact.
+
+## CI checks
+
+- **rac-coverage** compares the component exports of the installed `react-aria-components` with the exports of `@oxy/ui`. Contexts, hooks, layout classes and `UNSTABLE_*` exports are skipped automatically; deliberate exclusions (providers, `Collection`, `Virtualizer`, …) live in `tools/checks/rac-coverage.config.ts`. Until the component groups of stage 4 exist the job reports the missing list as a warning instead of failing: flip `enforce: true` in the config (or run with `--strict`) to make it red. The config also fails when an ignored name stops being exported or gets wrapped, so the exclusion list cannot go stale.
+- **token-contrast** runs `checkContrast` from `@oxy/tokens` over the themes listed in `tools/checks/contrast.config.ts` (the default theme and `materialDarkTheme` today; add new themes there) and fails when any `on-X` / `X` pair is below WCAG AA (4.5:1).
+- **Pages** (`.github/workflows/pages.yml`) publishes the static Storybook to GitHub Pages on every push to `main`.
 
 ## Architecture notes
 
