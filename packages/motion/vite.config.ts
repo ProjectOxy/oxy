@@ -3,8 +3,9 @@ import { stylexCompilePlugin } from "../../stylex.config.ts";
 
 export default defineConfig({
   plugins: [stylexCompilePlugin()],
+  test: { environment: "jsdom" },
   pack: {
-    entry: ["src/index.ts", "src/*.stylex.ts"],
+    entry: ["src/index.ts", "src/gestures.ts", "src/*.stylex.ts"],
     platform: "browser",
     dts: { generator: "tsgo" },
     exports: { devExports: true },

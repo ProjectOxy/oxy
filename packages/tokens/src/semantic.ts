@@ -161,6 +161,7 @@ export const semanticTokens = {
     "disabled-content": "0.38",
   },
   motion: {
+    enabled: "1",
     duration: {
       short1: "50ms",
       short2: "100ms",

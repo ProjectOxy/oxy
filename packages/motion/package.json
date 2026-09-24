@@ -15,24 +15,38 @@
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
+    "./gestures": "./src/gestures.ts",
     "./motion.stylex": "./src/motion.stylex.ts",
     "./package.json": "./package.json"
   },
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
+      "./gestures": "./dist/gestures.js",
       "./motion.stylex": "./dist/motion.stylex.js",
       "./package.json": "./package.json"
     },
     "access": "public"
   },
   "scripts": {
-    "build": "vp pack"
+    "generate": "node scripts/generate.ts",
+    "build": "node scripts/generate.ts && vp pack"
+  },
+  "dependencies": {
+    "@oxy/tokens": "workspace:*"
   },
   "devDependencies": {
-    "@stylexjs/stylex": "catalog:"
+    "@stylexjs/stylex": "catalog:",
+    "jsdom": "^30.1.1",
+    "motion": "catalog:"
   },
   "peerDependencies": {
-    "@stylexjs/stylex": "catalog:"
+    "@stylexjs/stylex": "catalog:",
+    "motion": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "motion": {
+      "optional": true
+    }
   }
 }

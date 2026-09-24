@@ -2,6 +2,7 @@ import "./oxy.css";
 import "@oxy/tokens/semantic.stylex";
 import "@oxy/tokens/component.stylex";
 import "@oxy/motion/motion.stylex";
+import "@oxy/motion";
 import "@oxy/icons";
 import "@oxy/utilities";
 import "@oxy/material-theme";

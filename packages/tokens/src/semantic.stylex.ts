@@ -257,6 +257,7 @@ export const state = stylex.defineVars({
 });
 
 export const motion = stylex.defineVars({
+  "--oxy-motion-enabled": "1",
   "--oxy-motion-duration-short1": "50ms",
   "--oxy-motion-duration-short2": "100ms",
   "--oxy-motion-duration-short3": "150ms",

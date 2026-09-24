@@ -43,6 +43,7 @@
     "@stylexjs/unplugin": "^0.19.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "motion": "^13.4.2",
     "react": "^19.3.0",
     "react-aria-components": "^1.21.1",
     "react-dom": "^19.3.0",

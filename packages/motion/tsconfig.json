@@ -1,4 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src"]
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["src", "scripts", "tests"],
+  "references": [{ "path": "../tokens" }]
 }
