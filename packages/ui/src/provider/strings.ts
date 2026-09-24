@@ -4,6 +4,8 @@ export type PluralMessage = Partial<Record<Intl.LDMLPluralRule, string>> & { oth
 export type Message = string | PluralMessage;
 
 const en = {
+  close: "Close",
+  closeSheet: "Close sheet",
   dismiss: "Dismiss",
   loading: "Loading",
   selectedCount: { one: "{count} item selected", other: "{count} items selected" },
@@ -19,6 +21,8 @@ export type MessageValues = Readonly<Record<string, string | number>>;
 export const defaultStrings: Strings = {
   en,
   ru: {
+    close: "Закрыть",
+    closeSheet: "Закрыть панель",
     dismiss: "Закрыть",
     loading: "Загрузка",
     selectedCount: {

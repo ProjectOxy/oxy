@@ -450,3 +450,88 @@ export const emptyState = stylex.defineVars({
   "--oxy-empty-state-icon-container-radius": "var(--oxy-radius-full)",
   "--oxy-empty-state-actions-gap": "var(--oxy-space-sm)",
 });
+
+export const closeButton = stylex.defineVars({
+  "--oxy-close-button-size": "40px",
+  "--oxy-close-button-icon-size": "24px",
+});
+
+export const dialog = stylex.defineVars({
+  "--oxy-dialog-container-color": "var(--oxy-color-surface-container-high)",
+  "--oxy-dialog-radius": "var(--oxy-radius-xl)",
+  "--oxy-dialog-elevation": "var(--oxy-elevation-level3)",
+  "--oxy-dialog-padding": "var(--oxy-space-xl)",
+  "--oxy-dialog-gap": "var(--oxy-space-lg)",
+  "--oxy-dialog-actions-gap": "var(--oxy-space-sm)",
+  "--oxy-dialog-min-width": "280px",
+  "--oxy-dialog-max-width": "560px",
+  "--oxy-dialog-margin": "var(--oxy-space-xl)",
+  "--oxy-dialog-fullscreen-container-color": "var(--oxy-color-surface)",
+  "--oxy-dialog-fullscreen-header-height": "56px",
+  "--oxy-dialog-fullscreen-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-dialog-scrim-opacity": "0.32",
+});
+
+export const popover = stylex.defineVars({
+  "--oxy-popover-container-color": "var(--oxy-color-surface-container)",
+  "--oxy-popover-radius": "var(--oxy-radius-lg)",
+  "--oxy-popover-elevation": "var(--oxy-elevation-level2)",
+  "--oxy-popover-padding": "var(--oxy-space-lg)",
+  "--oxy-popover-arrow-width": "12px",
+  "--oxy-popover-arrow-height": "6px",
+});
+
+export const tooltip = stylex.defineVars({
+  "--oxy-tooltip-plain-container-color": "var(--oxy-color-inverse-surface)",
+  "--oxy-tooltip-plain-radius": "var(--oxy-radius-xs)",
+  "--oxy-tooltip-plain-min-height": "24px",
+  "--oxy-tooltip-plain-padding-inline": "var(--oxy-space-sm)",
+  "--oxy-tooltip-plain-padding-block": "var(--oxy-space-xs)",
+  "--oxy-tooltip-plain-max-width": "200px",
+  "--oxy-tooltip-rich-container-color": "var(--oxy-color-surface-container)",
+  "--oxy-tooltip-rich-radius": "var(--oxy-radius-md)",
+  "--oxy-tooltip-rich-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-tooltip-rich-padding-block": "var(--oxy-space-md)",
+  "--oxy-tooltip-rich-max-width": "320px",
+  "--oxy-tooltip-rich-gap": "var(--oxy-space-xs)",
+  "--oxy-tooltip-rich-elevation": "var(--oxy-elevation-level2)",
+});
+
+export const snackbar = stylex.defineVars({
+  "--oxy-snackbar-container-color": "var(--oxy-color-inverse-surface)",
+  "--oxy-snackbar-action-color": "var(--oxy-color-inverse-primary)",
+  "--oxy-snackbar-radius": "var(--oxy-radius-xs)",
+  "--oxy-snackbar-elevation": "var(--oxy-elevation-level3)",
+  "--oxy-snackbar-min-height": "48px",
+  "--oxy-snackbar-min-width": "344px",
+  "--oxy-snackbar-max-width": "600px",
+  "--oxy-snackbar-padding-inline-start": "var(--oxy-space-lg)",
+  "--oxy-snackbar-padding-inline-end": "var(--oxy-space-sm)",
+  "--oxy-snackbar-padding-block": "14px",
+  "--oxy-snackbar-gap": "var(--oxy-space-xs)",
+  "--oxy-snackbar-margin": "var(--oxy-space-lg)",
+  "--oxy-snackbar-stack-gap": "var(--oxy-space-sm)",
+});
+
+export const bottomSheet = stylex.defineVars({
+  "--oxy-bottom-sheet-container-color": "var(--oxy-color-surface-container-low)",
+  "--oxy-bottom-sheet-radius": "var(--oxy-radius-xl)",
+  "--oxy-bottom-sheet-elevation": "var(--oxy-elevation-level1)",
+  "--oxy-bottom-sheet-max-width": "640px",
+  "--oxy-bottom-sheet-top-margin": "72px",
+  "--oxy-bottom-sheet-padding": "var(--oxy-space-xl)",
+  "--oxy-bottom-sheet-handle-width": "32px",
+  "--oxy-bottom-sheet-handle-height": "4px",
+  "--oxy-bottom-sheet-handle-area-height": "var(--oxy-touch-target-size)",
+});
+
+export const sideSheet = stylex.defineVars({
+  "--oxy-side-sheet-container-color": "var(--oxy-color-surface-container-low)",
+  "--oxy-side-sheet-radius": "var(--oxy-radius-lg)",
+  "--oxy-side-sheet-elevation": "var(--oxy-elevation-level1)",
+  "--oxy-side-sheet-width": "400px",
+  "--oxy-side-sheet-min-margin": "56px",
+  "--oxy-side-sheet-padding": "var(--oxy-space-xl)",
+  "--oxy-side-sheet-header-height": "72px",
+  "--oxy-side-sheet-header-padding-inline-end": "var(--oxy-space-md)",
+});
