@@ -24,6 +24,12 @@ const sliderSize = (trackHeight: string, handleHeight: string, trackRadius: stri
   "track-radius": trackRadius,
 });
 
+const avatarSize = (size: string, iconSize: string, squareRadius: string) => ({
+  size,
+  "icon-size": iconSize,
+  "square-radius": squareRadius,
+});
+
 const fabSize = (
   height: string,
   iconSize: string,
@@ -49,6 +55,14 @@ export const componentTokens = {
   },
   density: {
     step: "4px",
+  },
+  icon: {
+    "font-family": "'Material Symbols Outlined'",
+    size: "24px",
+    fill: "0",
+    weight: "400",
+    grade: "0",
+    "optical-size": "24",
   },
   button: {
     xs: buttonSize(
@@ -173,8 +187,8 @@ export const componentTokens = {
     "label-gap": "{space.xs}",
     "horizontal-gap": "{space.xs}",
     "horizontal-padding-inline": "{space.lg}",
-    "badge-size": "16px",
-    "badge-dot-size": "6px",
+    "badge-size": "{badge.large-size}",
+    "badge-dot-size": "{badge.small-size}",
   },
   "navigation-bar": {
     height: "64px",
@@ -376,6 +390,47 @@ export const componentTokens = {
     padding: "{space.lg}",
     radius: "{radius.md}",
     elevation: "{elevation.level1}",
-    "container-color": "{color.surface-container-low}",
+    "elevated-container-color": "{color.surface-container-low}",
+    "filled-container-color": "{color.surface-container-highest}",
+    "outlined-container-color": "{color.surface}",
+    "outline-color": "{color.outline-variant}",
+    "outline-width": "1px",
+  },
+  badge: {
+    "small-size": "6px",
+    "large-size": "16px",
+    "padding-inline": "{space.xs}",
+  },
+  avatar: {
+    xs: avatarSize("24px", "16px", "{radius.xs}"),
+    sm: avatarSize("32px", "20px", "{radius.sm}"),
+    md: avatarSize("40px", "24px", "{radius.md}"),
+    lg: avatarSize("56px", "32px", "{radius.lg}"),
+    xl: avatarSize("88px", "48px", "{radius.xl}"),
+  },
+  keyboard: {
+    "min-size": "24px",
+    "padding-inline": "{space.xs}",
+    radius: "{radius.xs}",
+    "outline-width": "1px",
+    depth: "2px",
+  },
+  skeleton: {
+    color: "{color.surface-container-highest}",
+    "highlight-color": "{color.surface-container-low}",
+    "text-radius": "{radius.xs}",
+    "rect-radius": "{radius.md}",
+    "circle-size": "40px",
+  },
+  "empty-state": {
+    "max-inline-size": "400px",
+    padding: "{space.xl}",
+    "expanded-padding": "{space.3xl}",
+    gap: "{space.sm}",
+    "icon-size": "40px",
+    "icon-container-size": "88px",
+    "expanded-icon-container-size": "120px",
+    "icon-container-radius": "{radius.full}",
+    "actions-gap": "{space.sm}",
   },
 };

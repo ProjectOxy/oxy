@@ -4,6 +4,7 @@
   "exclude": ["visual/__screenshots__", "visual/test-results", "visual/report"],
   "references": [
     { "path": "../../packages/tokens" },
+    { "path": "../../packages/icons" },
     { "path": "../../packages/material-theme" },
     { "path": "../../packages/ui" },
     { "path": "../../packages/utilities" },

@@ -4,14 +4,14 @@ React component library on top of [React Aria Components](https://react-spectrum
 
 ## Packages
 
-| Package               | Purpose                                                                            |
-| --------------------- | ---------------------------------------------------------------------------------- |
-| `@oxy/tokens`         | Primitive, semantic and component tokens, `createTheme`, build-time contrast check |
-| `@oxy/material-theme` | M3 Expressive theme from a seed color (`createMaterialTheme`) and a neutral base   |
-| `@oxy/motion`         | Motion helpers for StyleX, spring → `linear()`, Motion gestures (`/gestures`)      |
-| `@oxy/icons`          | Material Symbols icon component                                                    |
-| `@oxy/utilities`      | Token-driven utility class layer                                                   |
-| `@oxy/ui`             | Components and M3 compositions, one entry per component (`@oxy/ui/button`)         |
+| Package               | Purpose                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| `@oxy/tokens`         | Primitive, semantic and component tokens, `createTheme`, build-time contrast check    |
+| `@oxy/material-theme` | M3 Expressive theme from a seed color (`createMaterialTheme`) and a neutral base      |
+| `@oxy/motion`         | Motion helpers for StyleX, spring → `linear()`, Motion gestures (`/gestures`)         |
+| `@oxy/icons`          | Material Symbols `Icon`, one export per symbol, Vite font-subsetting plugin (`/vite`) |
+| `@oxy/utilities`      | Token-driven utility class layer                                                      |
+| `@oxy/ui`             | Components and M3 compositions, one entry per component (`@oxy/ui/button`)            |
 
 Private workspaces under `tools/`:
 
@@ -154,6 +154,17 @@ Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. 
 - **`Calendar` and `RangeCalendar`** render the M3 layout by default: a header with the month (`heading`) and the `previous`/`next` buttons, one `grid` per month of `visibleDuration`, and an `errorMessage` prop shown while invalid. They take a tone and a density; `classNames` reaches `header`, `heading`, `previous`, `next`, `months`, `grid`, `errorMessage` and `cell` (a function of the cell state). Selected days fill a circle in the tone color, today is outlined, a range bands the days between its ends. Passing children keeps the React Aria composition: `CalendarGrid` (default cells when it has no children), `CalendarGridHeader`, `CalendarHeaderCell`, `CalendarGridBody`, `CalendarCell` (with a `day` slot), `CalendarHeading`, and `CalendarMonthPicker`/`CalendarYearPicker`, which render an M3 `Select` unless given a render function.
 - **`DateField`, `TimeField`, `DatePicker` and `DateRangePicker`** are M3 text fields like `Select`: `label`, `description` and `errorMessage` are props, the label stays floated over the segment placeholders, and `classNames` reaches `label`, `field`, `segment`, `description` and `fieldError`, plus `input`, `trigger`, `popover`, `dialog`, `calendar` (and `separator` for ranges) on the pickers. The pickers open a docked calendar that inherits their tone and density. `DateInput` and `DateSegment` style hand-built React Aria compositions. Calendars and formats follow the locale of the nearest `OxyProvider` (`fa-IR-u-ca-persian`, `ar-SA-u-ca-islamic-umalqura`, `th-TH-u-ca-buddhist`, …).
 
+### Display
+
+- **`Icon`** from `@oxy/icons` is re-exported as `@oxy/ui/icon`. Components size the icons inside them through `--oxy-icon-size` (buttons, FABs, avatars, navigation items, empty states), and the `icon.*` tokens set fill, weight, grade and optical size on any themed subtree.
+- **`Card`** is `elevated` (default), `filled` or `outlined`, with the `card.*` tokens for padding, radius, elevation and container colors; `p-none` makes room for full-bleed media.
+- **`Avatar`** shows `src` once it loads and its children (initials or an `Icon`) while loading or after an error; `data-status` and the `className` function carry `none`/`loading`/`loaded`/`error`. `xs`–`xl`, `round`/`square` and the four tones; slots `image` and `fallback`. With `alt` it is a labelled `img`.
+- **`Badge`** is a 6px dot without a `value` and a 16px count with one, formatted for the locale and capped at `max` (`999+`). Children become the anchor: `<Badge value={3}><Icon icon={mail} /></Badge>` places the badge on the icon's top-end corner, mirrored in RTL (slot `anchor`). `error` by default, or any tone.
+- **`Keyboard`** wraps React Aria's `<kbd>`: a `keycap` by default or `plain` text for menu shortcuts. Inside a `MenuItem` React Aria links it to the item as its keyboard shortcut.
+- **`Skeleton`** is a `text` line (1em high, centered in the line), a `rect` or a `circle`, animated with `pulse` (default), `wave` (runs with the reading direction) or `still`. The cycle is `2 × motion.duration.extra-long4`, so it stops with `motion.enabled` and reduced motion. Children size the placeholder and stay hidden and inert.
+- **`EmptyState`** takes `icon`, `headline` (a React Aria `Heading`, `headingLevel` 2 by default), `description` and actions as children; tones color the icon container, `start` aligns it to the reading direction. Mobile-first: an 88px icon container and `title-large` headline, 120px and `headline-small` from 600px.
+- **`Divider`** is `Separator` under its M3 name.
+
 [CONTRIBUTING.md](CONTRIBUTING.md) walks through wrapping a React Aria component, with `Button` as the reference.
 
 ## Visual regressions
@@ -177,6 +188,9 @@ Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. 
 - Motion tokens (`motion.duration.*`, `motion.easing.*`, `motion.spring.*`, `motion.enabled`) live in `@oxy/tokens`. `bun run --cwd packages/motion generate` writes `motion.stylex.ts`: `duration` and `easing` consts for StyleX, springs converted to CSS `linear()` easings, and `--oxy-motion-allowed`, which drops to `0` under `prefers-reduced-motion`. Every `duration` const is multiplied by `--oxy-motion-enabled` and `--oxy-motion-allowed`, so `createTheme({ motion: { enabled: "0" } })` or the user's reduced-motion setting turns motion off on any subtree. Themes that override springs add `springVars(theme.tokens.motion.spring)` to their vars.
 - `presence.fade`, `presence.scale` and `presence.slide` animate React Aria `data-entering` / `data-exiting`. Motion is an optional peer used only by `@oxy/motion/gestures` (`springTransition`, `animateSpring`) for gesture physics, so it never reaches bundles that skip that entry point.
 - `createMaterialTheme({ seed, scheme, contrast, overrides })` builds the color roles from a seed with `@material/material-color-utilities` (2025 spec, tonal spot; `contrast` is `standard`, `medium` or `high`), adds the M3 Expressive motion scheme and applies `overrides` last. `createNeutralTheme({ scheme, contrast, overrides })` is the brand-from-scratch base: a monochrome scheme, system font, small radii, flat shadows and non-bouncy springs. Both declare every semantic token plus the spring curves, so either one is complete on any subtree, including one nested inside the other.
+- `@oxy/icons` renders Material Symbols from the variable font, so `icon.fill`, `icon.weight`, `icon.grade` and `icon.optical-size` tokens drive the `FILL`, `wght`, `GRAD` and `opsz` axes on any themed subtree. Every symbol is its own export (`arrowBack`, `_3dRotation`, `delete_`) carrying its codepoint, so bundles keep only the symbols they import. `bun run --cwd packages/icons generate` rebuilds `symbols.ts` from the `material-symbols` font; a test fails when it is stale.
+- `materialSymbols()` from `@oxy/icons/vite` serves the full font in dev and, on build, emits a woff2 subset with only the codepoints left in the bundle; import `virtual:oxy/material-symbols.css` once for the `@font-face`. Rounded and sharp styles come from `materialSymbols({ style })` together with the `icon.font-family` token.
+- `Icon` flips directional symbols (arrows, chevrons, back/forward, undo/redo, …) inside an RTL locale from React Aria's `I18nProvider`; `mirrorInRtl` overrides the per-symbol default.
 - Styles are written with logical properties so RTL needs no separate theme.
 - Cascade order is fixed with CSS layers: `oxy.components` (all StyleX output: component base styles, then variants) comes before `oxy.utilities`, so utility classes always win whatever the load order (see [Cascade order](#cascade-order)).
 - Shared StyleX compiler options live in `stylex.config.ts`; `vp pack` compiles each package, and `tools/css` collects the CSS of all packages into one file.
