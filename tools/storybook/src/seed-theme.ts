@@ -1,10 +1,8 @@
 import { argbFromHex, hexFromArgb, themeFromSourceColor } from "@material/material-color-utilities";
 import { materialDarkTheme } from "@oxy/material-theme";
 import { createTheme, defaultTheme, tokens, type Theme } from "@oxy/tokens";
-import { useMemo, type CSSProperties, type ReactNode } from "react";
-import { I18nProvider } from "react-aria-components";
-
-export type Scheme = "light" | "dark";
+import type { Scheme } from "@oxy/ui";
+import { useMemo } from "react";
 
 export const seeds = [
   { name: "Baseline", value: "#6750a4" },
@@ -29,29 +27,8 @@ function seedTheme(seed: string, scheme: Scheme): Theme {
   return createTheme({ color }, baseThemes[scheme]);
 }
 
-export interface OxyProviderProps {
-  locale?: string;
-  scheme?: Scheme;
-  seed?: string;
-  children: ReactNode;
-}
-
-export function OxyProvider({
-  locale,
-  scheme = "light",
-  seed = seeds[0].value,
-  children,
-}: OxyProviderProps) {
-  const theme = useMemo(
+export const useSeedTheme = (seed: string, scheme: Scheme) =>
+  useMemo(
     () => (seed.toLowerCase() === seeds[0].value ? baseThemes[scheme] : seedTheme(seed, scheme)),
     [seed, scheme],
   );
-  const style: CSSProperties = { ...theme.vars, colorScheme: scheme, display: "contents" };
-  return (
-    <I18nProvider locale={locale}>
-      <div data-scheme={scheme} style={style}>
-        {children}
-      </div>
-    </I18nProvider>
-  );
-}

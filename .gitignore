@@ -35,3 +35,7 @@ dist-ssr
 # TypeScript build info
 *.tsbuildinfo
 .tsout
+
+# Vitest browser mode failure artifacts
+.vitest-attachments
+packages/*/tests/__screenshots__

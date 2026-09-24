@@ -1,5 +1,6 @@
 import type { Decorator, Preview } from "@storybook/react-vite";
-import { seeds, type Scheme } from "../src/oxy-provider.tsx";
+import type { Scheme } from "@oxy/ui";
+import { seeds } from "../src/seed-theme.ts";
 import { StoryFrame, type Direction } from "../src/story-frame.tsx";
 
 const withOxyProviders: Decorator = (Story, { globals }) => (

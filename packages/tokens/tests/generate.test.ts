@@ -29,7 +29,7 @@ test("primitives stay out of the component-facing API", () => {
 
 test("component tokens alias semantic tokens through CSS variables", () => {
   expect(modules["component.stylex.ts"]).toContain(
-    '"--oxy-button-container-color": "var(--oxy-color-primary)"',
+    '"--oxy-button-sm-padding-inline": "var(--oxy-space-lg)"',
   );
   expect(modules["semantic.stylex.ts"]).toContain('"--oxy-radius-md": "12px"');
   expect(modules["semantic.stylex.ts"]).toContain("export const typography = stylex.defineVars({");

@@ -1,5 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["vite/client"]
+  },
   "include": ["src", "tests"],
-  "references": [{ "path": "../tokens" }]
+  "references": [{ "path": "../tokens" }, { "path": "../motion" }, { "path": "../utilities" }]
 }
