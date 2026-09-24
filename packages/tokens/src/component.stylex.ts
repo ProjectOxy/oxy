@@ -255,6 +255,27 @@ export const dropdown = stylex.defineVars({
   "--oxy-dropdown-supporting-gap": "var(--oxy-space-xs)",
 });
 
+export const calendar = stylex.defineVars({
+  "--oxy-calendar-padding": "var(--oxy-space-md)",
+  "--oxy-calendar-header-height": "48px",
+  "--oxy-calendar-nav-size": "40px",
+  "--oxy-calendar-icon-size": "24px",
+  "--oxy-calendar-cell-width": "48px",
+  "--oxy-calendar-cell-height": "48px",
+  "--oxy-calendar-day-size": "40px",
+  "--oxy-calendar-day-radius": "var(--oxy-radius-full)",
+  "--oxy-calendar-today-outline-width": "1px",
+  "--oxy-calendar-month-gap": "var(--oxy-space-xl)",
+});
+
+export const datePicker = stylex.defineVars({
+  "--oxy-date-picker-container-color": "var(--oxy-color-surface-container-high)",
+  "--oxy-date-picker-radius": "var(--oxy-radius-lg)",
+  "--oxy-date-picker-elevation": "var(--oxy-elevation-level3)",
+  "--oxy-date-picker-segment-radius": "var(--oxy-radius-xs)",
+  "--oxy-date-picker-trigger-size": "40px",
+});
+
 export const chip = stylex.defineVars({
   "--oxy-chip-height": "32px",
   "--oxy-chip-radius": "var(--oxy-radius-sm)",
