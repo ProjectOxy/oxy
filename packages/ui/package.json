@@ -16,12 +16,14 @@
   "exports": {
     ".": "./src/index.ts",
     "./button": "./src/button/index.ts",
+    "./provider": "./src/provider/index.ts",
     "./package.json": "./package.json"
   },
   "publishConfig": {
     "exports": {
       ".": "./dist/index.js",
       "./button": "./dist/button/index.js",
+      "./provider": "./dist/provider/index.js",
       "./package.json": "./package.json"
     },
     "access": "public"
@@ -32,17 +34,22 @@
   "dependencies": {
     "@internationalized/date": "catalog:",
     "@internationalized/number": "catalog:",
+    "@oxy/motion": "workspace:*",
     "@oxy/tokens": "workspace:*",
+    "react-aria": "catalog:",
     "react-aria-components": "catalog:"
   },
   "devDependencies": {
+    "@oxy/utilities": "workspace:*",
     "@storybook/react-vite": "^10.6.0",
     "@stylexjs/stylex": "catalog:",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.3",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@vitest/browser-playwright": "4.1.11",
     "jsdom": "^30.1.1",
+    "playwright": "1.63.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "storybook": "^10.6.0"

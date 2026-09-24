@@ -7,13 +7,50 @@ export const focusRing = stylex.defineVars({
   "--oxy-focus-ring-color": "var(--oxy-color-secondary)",
 });
 
+export const touchTarget = stylex.defineVars({
+  "--oxy-touch-target-size": "48px",
+});
+
+export const density = stylex.defineVars({
+  "--oxy-density-step": "4px",
+});
+
 export const button = stylex.defineVars({
-  "--oxy-button-height": "40px",
-  "--oxy-button-padding-inline": "var(--oxy-space-lg)",
-  "--oxy-button-gap": "var(--oxy-space-sm)",
-  "--oxy-button-radius": "var(--oxy-radius-full)",
-  "--oxy-button-container-color": "var(--oxy-color-primary)",
-  "--oxy-button-label-color": "var(--oxy-color-on-primary)",
+  "--oxy-button-xs-height": "32px",
+  "--oxy-button-xs-padding-inline": "var(--oxy-space-md)",
+  "--oxy-button-xs-gap": "var(--oxy-space-xs)",
+  "--oxy-button-xs-icon-size": "20px",
+  "--oxy-button-xs-square-radius": "var(--oxy-radius-md)",
+  "--oxy-button-xs-pressed-radius": "var(--oxy-radius-sm)",
+  "--oxy-button-xs-outline-width": "1px",
+  "--oxy-button-sm-height": "40px",
+  "--oxy-button-sm-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-button-sm-gap": "var(--oxy-space-sm)",
+  "--oxy-button-sm-icon-size": "20px",
+  "--oxy-button-sm-square-radius": "var(--oxy-radius-md)",
+  "--oxy-button-sm-pressed-radius": "var(--oxy-radius-sm)",
+  "--oxy-button-sm-outline-width": "1px",
+  "--oxy-button-md-height": "56px",
+  "--oxy-button-md-padding-inline": "var(--oxy-space-xl)",
+  "--oxy-button-md-gap": "var(--oxy-space-sm)",
+  "--oxy-button-md-icon-size": "24px",
+  "--oxy-button-md-square-radius": "var(--oxy-radius-lg)",
+  "--oxy-button-md-pressed-radius": "var(--oxy-radius-md)",
+  "--oxy-button-md-outline-width": "1px",
+  "--oxy-button-lg-height": "96px",
+  "--oxy-button-lg-padding-inline": "var(--oxy-space-3xl)",
+  "--oxy-button-lg-gap": "var(--oxy-space-md)",
+  "--oxy-button-lg-icon-size": "32px",
+  "--oxy-button-lg-square-radius": "var(--oxy-radius-xl)",
+  "--oxy-button-lg-pressed-radius": "var(--oxy-radius-lg)",
+  "--oxy-button-lg-outline-width": "2px",
+  "--oxy-button-xl-height": "136px",
+  "--oxy-button-xl-padding-inline": "64px",
+  "--oxy-button-xl-gap": "var(--oxy-space-lg)",
+  "--oxy-button-xl-icon-size": "40px",
+  "--oxy-button-xl-square-radius": "var(--oxy-radius-xl)",
+  "--oxy-button-xl-pressed-radius": "var(--oxy-radius-lg)",
+  "--oxy-button-xl-outline-width": "3px",
 });
 
 export const card = stylex.defineVars({

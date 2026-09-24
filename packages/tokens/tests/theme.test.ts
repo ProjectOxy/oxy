@@ -16,7 +16,6 @@ describe("createTheme", () => {
     expect(theme.vars).toEqual({
       "--oxy-color-primary": "#006a60",
       "--oxy-color-surface-tint": "var(--oxy-color-primary)",
-      "--oxy-button-container-color": "var(--oxy-color-primary)",
     });
     expect(theme.tokens.color.primary).toBe("#006a60");
     expect(theme.tokens.color.secondary).toBe(defaultTheme.tokens.color.secondary);
@@ -27,15 +26,16 @@ describe("createTheme", () => {
 
     expect(theme.vars).toEqual({
       "--oxy-space-lg": "var(--oxy-space-xl)",
-      "--oxy-button-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-button-sm-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-button-xl-gap": "var(--oxy-space-lg)",
       "--oxy-card-padding": "var(--oxy-space-lg)",
     });
     expect(resolveTokens(theme.tokens).get("card.padding")).toBe("24px");
   });
 
   test("overrides component tokens without touching semantic ones", () => {
-    const theme = createTheme({ button: { radius: "{radius.sm}" } });
-    expect(theme.vars).toEqual({ "--oxy-button-radius": "var(--oxy-radius-sm)" });
+    const theme = createTheme({ button: { md: { "square-radius": "{radius.sm}" } } });
+    expect(theme.vars).toEqual({ "--oxy-button-md-square-radius": "var(--oxy-radius-sm)" });
   });
 
   test("extends a base theme and keeps its declarations", () => {
@@ -45,7 +45,6 @@ describe("createTheme", () => {
     expect(accent.tokens.radius.full).toBe("16px");
     expect(accent.vars).toMatchObject({
       "--oxy-radius-full": "16px",
-      "--oxy-button-radius": "var(--oxy-radius-full)",
       "--oxy-color-secondary": "#8b5000",
       "--oxy-focus-ring-color": "var(--oxy-color-secondary)",
     });

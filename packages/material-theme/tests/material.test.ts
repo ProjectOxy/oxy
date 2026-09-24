@@ -47,7 +47,7 @@ describe("createMaterialTheme", () => {
       overrides: {
         color: { primary: "#123456" },
         radius: { md: "{radius.xl}" },
-        button: { height: "48px" },
+        button: { sm: { height: "48px" } },
       },
     });
     const base = createMaterialTheme({ seed: "#0061a4" });
@@ -55,7 +55,7 @@ describe("createMaterialTheme", () => {
     expect(changedVars(base.vars, theme.vars)).toEqual([
       "--oxy-color-primary",
       "--oxy-radius-md",
-      "--oxy-button-height",
+      "--oxy-button-sm-height",
     ]);
     expect(theme.vars["--oxy-color-surface-tint"]).toBe("var(--oxy-color-primary)");
     expect(theme.vars["--oxy-card-radius"]).toBe("var(--oxy-radius-md)");

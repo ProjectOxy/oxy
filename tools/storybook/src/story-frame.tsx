@@ -1,7 +1,8 @@
 import { color } from "@oxy/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import { useLayoutEffect, type ReactNode } from "react";
-import { OxyProvider, type Scheme } from "./oxy-provider.tsx";
+import { OxyProvider, type Scheme } from "@oxy/ui";
+import { useSeedTheme } from "./seed-theme.ts";
 import "virtual:oxy/utilities.css";
 import "./preview.css";
 
@@ -30,9 +31,10 @@ export function StoryFrame({ locale, scheme, direction, seed, children }: StoryF
     document.documentElement.dir = direction;
     document.documentElement.style.colorScheme = scheme;
   }, [direction, scheme]);
+  const theme = useSeedTheme(seed, scheme);
 
   return (
-    <OxyProvider locale={locale} scheme={scheme} seed={seed}>
+    <OxyProvider locale={locale} scheme={scheme} theme={theme}>
       <div dir={direction} {...stylex.props(styles.frame)}>
         {children}
       </div>

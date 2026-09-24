@@ -61,7 +61,7 @@ Stories live next to their component (`packages/*/src/**/*.stories.tsx`); founda
 | `seed`      | Baseline, Ocean, Forest, …          | Seed color of the Material scheme, generated on the fly                                   |
 | `locale`    | `en-US`, `de-DE`, `ru-RU`, `ar-EG`… | Passed to React Aria `I18nProvider`; RTL locales also flip React Aria keyboard behaviour  |
 
-`tools/storybook/src/oxy-provider.tsx` is a stand-in for the `OxyProvider` planned in `@oxy/ui` (theme on a subtree + `I18nProvider`). It keeps the same props (`locale`, `scheme`, `seed`) so the decorator only needs its import swapped once the core lands; the theme comes from `createMaterialTheme` and its `vars` are applied inline on the subtree.
+The decorator wraps every story in `OxyProvider` from `@oxy/ui`; `tools/storybook/src/seed-theme.ts` turns the `seed` and `theme` globals into a theme with `createMaterialTheme` from `@oxy/material-theme`.
 
 Tag a story with `no-visual` to keep it out of the screenshot suite (for example, stories that depend on timers or randomness).
 
@@ -118,6 +118,17 @@ Wrappers in `@oxy/ui` keep to this: base and variants in StyleX, never in the ut
 `tokens` extends the default token tree. A new token (`color.brand`) gets its classes (`bg-brand`, `hover:bg-brand`, …) and a `:root` declaration of its variable; values may reference other tokens with `{color.primary}`. Tokens that already exist are declared by the StyleX token modules and themes, so passing a whole `theme.tokens` redeclares nothing. `breakpoints` replaces the breakpoint set and `modifiers` adds or overrides modifiers: a template with `&` is a selector (`"&[data-open]"`), one starting with `@` wraps the rules (`"@media (hover: hover)"`).
 
 The full set is about 700 KB (70 KB gzip). With `content` globs the CLI and `vite build` emit only the classes found in those files; the Vite dev server always serves the full set.
+
+## Components
+
+Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. On top it adds:
+
+- **Variants in `className`.** `<Button className="tonal lg secondary square dense px-xl">`: names the component declares (variant, size, tone, shape, density) become StyleX styles, everything else stays in `className` as utility classes. `className` may also be a function of the React Aria render state; its result is parsed the same way.
+- **Slots.** `classNames={{ stateLayer, touchTarget }}` styles the inner parts; each value is a string or a function of the render state.
+- **Unstyled mode.** `unstyled` on a component or on `OxyProvider` drops the theme styles, keeps behaviour and a minimal reset, and passes `className` through untouched.
+- **`OxyProvider`.** `theme` (a `createTheme` result) and `scheme` on any subtree, `locale` for React Aria `I18nProvider` plus `lang`/`dir`, `strings` to override the library's own strings (`useStrings`, plural forms through `Intl.PluralRules`) and `unstyled`. Overlays of the subtree render inside it, so they get its theme and direction.
+
+[CONTRIBUTING.md](CONTRIBUTING.md) walks through wrapping a React Aria component, with `Button` as the reference.
 
 ## Visual regressions
 
