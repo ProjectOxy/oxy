@@ -3,6 +3,10 @@ import { stylexCompilePlugin } from "../../stylex.config.ts";
 
 export default defineConfig({
   plugins: [stylexCompilePlugin()],
+  test: {
+    environment: "jsdom",
+    server: { deps: { inline: ["@material/material-color-utilities"] } },
+  },
   pack: {
     entry: ["src/index.ts"],
     platform: "browser",
