@@ -128,6 +128,14 @@ Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. 
 - **Unstyled mode.** `unstyled` on a component or on `OxyProvider` drops the theme styles, keeps behaviour and a minimal reset, and passes `className` through untouched.
 - **`OxyProvider`.** `theme` (a `createTheme` result) and `scheme` on any subtree, `locale` for React Aria `I18nProvider` plus `lang`/`dir`, `strings` to override the library's own strings (`useStrings`, plural forms through `Intl.PluralRules`) and `unstyled`. Overlays of the subtree render inside it, so they get its theme and direction.
 
+### Selection and collections
+
+- **`ListBox`, `GridList`, `Menu`, `TagGroup`** mirror the React Aria composition (`ListBoxItem`, `ListBoxSection` + `Header`, `GridListItem`, `MenuSection`, `SubmenuTrigger`, `TagList` + `Tag`). Items add `icon`, `description` and `trailing` props next to their children, and expose the `stateLayer`, `icon`, `label`, `description`, `trailing` and `indicator` slots. Lists take `standard`/`segmented` and a density; menus `standard`/`vibrant`.
+- **`Menu`** renders its own popover when it sits in a `MenuTrigger` or `SubmenuTrigger` (`classNames.popover`, `placement`, `offset`) and renders in place anywhere else, for example inside `Autocomplete`.
+- **`Select` and `ComboBox`** are M3 text fields (`filled`/`outlined`, tone, density) that own their parts: `label`, `description`, `errorMessage` and `items` are props, children render the options (`{(item) => <ListBoxItem>}`), and `classNames` reaches `label`, `trigger`/`field`, `value`, `input`, `indicator`, `description`, `fieldError`, `popover` and `listbox`. `SelectValue` and `ComboBoxValue` style the value inside hand-built React Aria compositions.
+- **`Tag`** chips are `assist`, `filter`, `input` or `suggestion`, `flat` or `elevated`. The group picks the default from its behaviour (`onRemove` → input, a selection mode → filter, otherwise assist); a class on `TagGroup` sets it for every chip and a class on a `Tag` overrides it.
+- `unstyled` on a collection or a field reaches its items and parts.
+
 [CONTRIBUTING.md](CONTRIBUTING.md) walks through wrapping a React Aria component, with `Button` as the reference.
 
 ## Visual regressions

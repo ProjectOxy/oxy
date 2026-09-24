@@ -30,6 +30,10 @@ describe("createTheme", () => {
       "--oxy-button-xl-gap": "var(--oxy-space-lg)",
       "--oxy-fab-sm-padding-inline": "var(--oxy-space-lg)",
       "--oxy-fab-lg-gap": "var(--oxy-space-lg)",
+      "--oxy-list-item-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-list-item-gap": "var(--oxy-space-lg)",
+      "--oxy-dropdown-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-chip-padding-inline": "var(--oxy-space-lg)",
       "--oxy-card-padding": "var(--oxy-space-lg)",
     });
     expect(resolveTokens(theme.tokens).get("card.padding")).toBe("24px");

@@ -104,6 +104,63 @@ export const toolbar = stylex.defineVars({
   "--oxy-toolbar-floating-elevation": "var(--oxy-elevation-level3)",
 });
 
+export const list = stylex.defineVars({
+  "--oxy-list-item-height": "56px",
+  "--oxy-list-item-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-list-item-gap": "var(--oxy-space-lg)",
+  "--oxy-list-item-icon-size": "24px",
+  "--oxy-list-segmented-gap": "var(--oxy-space-2xs)",
+  "--oxy-list-segmented-radius": "var(--oxy-radius-lg)",
+  "--oxy-list-segmented-item-radius": "var(--oxy-radius-xs)",
+  "--oxy-list-grid-min-column-width": "160px",
+  "--oxy-list-selection-size": "18px",
+  "--oxy-list-selection-radius": "2px",
+  "--oxy-list-selection-outline-width": "2px",
+});
+
+export const menu = stylex.defineVars({
+  "--oxy-menu-radius": "var(--oxy-radius-lg)",
+  "--oxy-menu-padding": "var(--oxy-space-xs)",
+  "--oxy-menu-elevation": "var(--oxy-elevation-level2)",
+  "--oxy-menu-min-width": "112px",
+  "--oxy-menu-max-width": "280px",
+  "--oxy-menu-item-height": "48px",
+  "--oxy-menu-item-padding-inline": "var(--oxy-space-md)",
+  "--oxy-menu-item-gap": "var(--oxy-space-md)",
+  "--oxy-menu-item-icon-size": "20px",
+  "--oxy-menu-item-radius": "var(--oxy-radius-xs)",
+  "--oxy-menu-item-edge-radius": "var(--oxy-radius-md)",
+  "--oxy-menu-selected-item-radius": "var(--oxy-radius-md)",
+});
+
+export const dropdown = stylex.defineVars({
+  "--oxy-dropdown-width": "280px",
+  "--oxy-dropdown-height": "56px",
+  "--oxy-dropdown-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-dropdown-gap": "var(--oxy-space-md)",
+  "--oxy-dropdown-icon-size": "24px",
+  "--oxy-dropdown-radius": "var(--oxy-radius-xs)",
+  "--oxy-dropdown-container-color": "var(--oxy-color-surface-container-highest)",
+  "--oxy-dropdown-indicator-width": "1px",
+  "--oxy-dropdown-focus-indicator-width": "2px",
+  "--oxy-dropdown-label-inset": "var(--oxy-space-sm)",
+  "--oxy-dropdown-supporting-gap": "var(--oxy-space-xs)",
+});
+
+export const chip = stylex.defineVars({
+  "--oxy-chip-height": "32px",
+  "--oxy-chip-radius": "var(--oxy-radius-sm)",
+  "--oxy-chip-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-chip-icon-padding-inline": "var(--oxy-space-sm)",
+  "--oxy-chip-gap": "var(--oxy-space-sm)",
+  "--oxy-chip-icon-size": "18px",
+  "--oxy-chip-avatar-size": "24px",
+  "--oxy-chip-outline-width": "1px",
+  "--oxy-chip-elevation": "var(--oxy-elevation-level1)",
+  "--oxy-chip-hovered-elevation": "var(--oxy-elevation-level2)",
+  "--oxy-chip-set-gap": "var(--oxy-space-sm)",
+});
+
 export const card = stylex.defineVars({
   "--oxy-card-padding": "var(--oxy-space-lg)",
   "--oxy-card-radius": "var(--oxy-radius-md)",
