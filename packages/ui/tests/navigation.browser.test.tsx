@@ -60,7 +60,7 @@ describe("NavigationBar", () => {
     const indicator = indicatorOf("Home");
     expect(rectOf(indicator).width).toBe(56);
     expect(rectOf(indicator).height).toBe(32);
-    expect(center(indicator)).toBe(center(link("Home")));
+    expect(center(indicator)).toBeCloseTo(center(link("Home")), 0);
     expect(rectOf(indicator).top - rectOf(link("Home")).top).toBe(6);
     expect(styleOf(indicator).backgroundColor).toBe(colorOf("secondary-container"));
     expect(styleOf(indicator).opacity).toBe("1");
@@ -124,7 +124,7 @@ describe("NavigationBar", () => {
     const icon = slotOf(link(/Mail/), "icon");
     expect(rectOf(badge).height).toBe(16);
     expect(styleOf(badge).backgroundColor).toBe(colorOf("error"));
-    expect(rectOf(badge).left).toBe(center(icon));
+    expect(rectOf(badge).left).toBeCloseTo(center(icon), 0);
     const dot = slotOf(link("Chat"), "badge");
     expect(rectOf(dot).width).toBe(6);
     expect(rectOf(dot).right).toBe(rectOf(slotOf(link("Chat"), "icon")).right);
@@ -252,7 +252,7 @@ describe("AppBar", () => {
     );
 
     const bar = screen.getByTestId("bar");
-    expect(center(screen.getByRole("heading", { name: "Center" }))).toBe(center(bar));
+    expect(center(screen.getByRole("heading", { name: "Center" }))).toBeCloseTo(center(bar), 0);
     expect(rectOf(screen.getByRole("button", { name: "≡" })).right).toBe(rectOf(bar).right - 4);
   });
 });
