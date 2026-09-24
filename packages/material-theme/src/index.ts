@@ -1,12 +1,17 @@
-import * as stylex from "@stylexjs/stylex";
-import { color } from "@oxy/tokens/color.stylex";
+import { createTheme } from "@oxy/tokens";
+import { palette } from "@oxy/tokens/primitives";
 
-export const materialDarkTheme = stylex.createTheme(color, {
-  "--oxy-color-primary": "#d0bcff",
-  "--oxy-color-on-primary": "#381e72",
-  "--oxy-color-primary-container": "#4f378b",
-  "--oxy-color-on-primary-container": "#e9ddff",
-  "--oxy-color-surface": "#141218",
-  "--oxy-color-on-surface": "#e6e0e9",
-  "--oxy-color-outline": "#938f99",
+const { primary, neutral } = palette;
+const neutralVariant = palette["neutral-variant"];
+
+export const materialDarkTheme = createTheme({
+  color: {
+    primary: primary[80],
+    "on-primary": primary[20],
+    "primary-container": primary[30],
+    "on-primary-container": primary[90],
+    surface: neutral[6],
+    "on-surface": neutral[90],
+    outline: neutralVariant[60],
+  },
 });

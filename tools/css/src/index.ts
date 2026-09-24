@@ -1,6 +1,6 @@
 import "./oxy.css";
-import "@oxy/tokens/color.stylex";
-import "@oxy/tokens/shape.stylex";
+import "@oxy/tokens/semantic.stylex";
+import "@oxy/tokens/component.stylex";
 import "@oxy/motion/motion.stylex";
 import "@oxy/icons";
 import "@oxy/utilities";

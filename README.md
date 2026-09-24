@@ -4,14 +4,14 @@ React component library on top of [React Aria Components](https://react-spectrum
 
 ## Packages
 
-| Package               | Purpose                                                                               |
-| --------------------- | ------------------------------------------------------------------------------------- |
-| `@oxy/tokens`         | Primitive, semantic and component tokens (`stylex.defineVars`), theme generator types |
-| `@oxy/material-theme` | Material Design 3 Expressive theme built on the tokens (`stylex.createTheme`)         |
-| `@oxy/motion`         | Motion tokens and animation helpers                                                   |
-| `@oxy/icons`          | Material Symbols icon component                                                       |
-| `@oxy/utilities`      | Token-driven utility class layer                                                      |
-| `@oxy/ui`             | Components and M3 compositions, one entry per component (`@oxy/ui/button`)            |
+| Package               | Purpose                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------- |
+| `@oxy/tokens`         | Primitive, semantic and component tokens, `createTheme`, build-time contrast check |
+| `@oxy/material-theme` | Material Design 3 Expressive theme built on the tokens (`createTheme`)             |
+| `@oxy/motion`         | Motion tokens and animation helpers                                                |
+| `@oxy/icons`          | Material Symbols icon component                                                    |
+| `@oxy/utilities`      | Token-driven utility class layer                                                   |
+| `@oxy/ui`             | Components and M3 compositions, one entry per component (`@oxy/ui/button`)         |
 
 `tools/css` is a private workspace that compiles the StyleX output of every package into a single static file, `dist/oxy.css`.
 
@@ -39,8 +39,10 @@ Inside a package, `vp pack` builds it and `vp pack --watch` rebuilds on change.
 
 - ESM only. Every package sets `sideEffects: false` and exposes one export per component so consumers tree-shake at the component level.
 - `exports` maps point to source files while developing (`devExports`); `publishConfig.exports` swaps them to `dist` on publish. `vp pack` keeps both in sync.
-- Tokens are declared with `stylex.defineVars` in `*.stylex.ts` files and use explicit custom-property names (`--oxy-color-primary`), so variable names stay stable across package builds and downstream StyleX compilations.
-- Components reference semantic and component tokens only; themes (`stylex.createTheme`) can be applied to any subtree.
+- Tokens have one typed source in `packages/tokens/src`: `primitives.ts` (palettes, scales), `semantic.ts` and `component.ts`. Values may alias other semantic or component tokens with `{color.primary}`, which becomes `var(--oxy-color-primary)`.
+- `bun run --cwd packages/tokens generate` writes `semantic.stylex.ts` and `component.stylex.ts` (`stylex.defineVars` with explicit names like `--oxy-color-primary`, stable across builds). A test fails when they are stale, and the build fails when an `on-X` / `X` color pair is below WCAG AA.
+- Components import only `@oxy/tokens/semantic.stylex` and `@oxy/tokens/component.stylex`; primitives are plain values in `@oxy/tokens/primitives` for theme authors and never become CSS variables.
+- `createTheme(overrides, base?)` returns `vars` to set as inline style on any subtree. It re-declares every token aliasing an override, so component tokens follow the theme, and nested themes inherit what they do not override.
 - Styles are written with logical properties so RTL needs no separate theme.
 - Cascade order is fixed with CSS layers: StyleX layers (`oxy.priority*`) hold component base styles and variants, `utilities` comes last so utility classes always win.
 - Shared StyleX compiler options live in `stylex.config.ts`; `vp pack` compiles each package, and `tools/css` collects the CSS of all packages into one file.

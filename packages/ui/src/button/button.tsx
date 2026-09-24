@@ -1,6 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { color } from "@oxy/tokens/color.stylex";
-import { shape } from "@oxy/tokens/shape.stylex";
+import { button } from "@oxy/tokens/component.stylex";
 import {
   Button as AriaButton,
   type ButtonProps as AriaButtonProps,
@@ -9,12 +8,12 @@ import {
 
 const styles = stylex.create({
   root: {
-    minBlockSize: 40,
-    paddingInline: 24,
-    borderRadius: shape["--oxy-shape-full"],
+    minBlockSize: button["--oxy-button-height"],
+    paddingInline: button["--oxy-button-padding-inline"],
+    borderRadius: button["--oxy-button-radius"],
     borderWidth: 0,
-    backgroundColor: color["--oxy-color-primary"],
-    color: color["--oxy-color-on-primary"],
+    backgroundColor: button["--oxy-button-container-color"],
+    color: button["--oxy-button-label-color"],
     cursor: "pointer",
   },
 });
