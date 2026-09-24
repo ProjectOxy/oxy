@@ -18,6 +18,12 @@ const buttonSize = (
   "outline-width": outlineWidth,
 });
 
+const sliderSize = (trackHeight: string, handleHeight: string, trackRadius: string) => ({
+  "track-height": trackHeight,
+  "handle-height": handleHeight,
+  "track-radius": trackRadius,
+});
+
 const fabSize = (
   height: string,
   iconSize: string,
@@ -125,6 +131,74 @@ export const componentTokens = {
     gap: "{space.xs}",
     "floating-radius": "{radius.full}",
     "floating-elevation": "{elevation.level3}",
+  },
+  "text-field": {
+    height: "56px",
+    "padding-inline": "{space.lg}",
+    gap: "{space.md}",
+    "icon-size": "24px",
+    radius: "{radius.xs}",
+    "container-color": "{color.surface-container-highest}",
+    "indicator-width": "1px",
+    "focus-indicator-width": "2px",
+    "label-inset": "{space.sm}",
+    "supporting-gap": "{space.xs}",
+  },
+  "search-field": {
+    height: "56px",
+    radius: "{radius.full}",
+    "container-color": "{color.surface-container-high}",
+  },
+  checkbox: {
+    size: "18px",
+    radius: "2px",
+    "outline-width": "2px",
+    "state-layer-size": "40px",
+  },
+  radio: {
+    size: "20px",
+    "dot-size": "10px",
+    "outline-width": "2px",
+    "state-layer-size": "40px",
+  },
+  switch: {
+    "track-width": "52px",
+    "track-height": "32px",
+    "outline-width": "2px",
+    "handle-size": "16px",
+    "selected-handle-size": "24px",
+    "pressed-handle-size": "28px",
+    "icon-size": "16px",
+    "state-layer-size": "40px",
+  },
+  slider: {
+    xs: sliderSize("16px", "44px", "{radius.sm}"),
+    sm: sliderSize("24px", "44px", "{radius.sm}"),
+    md: sliderSize("40px", "52px", "{radius.md}"),
+    lg: sliderSize("56px", "68px", "{radius.lg}"),
+    xl: sliderSize("96px", "108px", "{radius.xl}"),
+    "handle-width": "4px",
+    "handle-gap": "6px",
+    "inner-radius": "2px",
+    "stop-size": "4px",
+    "value-indicator-height": "44px",
+    "vertical-length": "200px",
+  },
+  progress: {
+    "track-height": "4px",
+    gap: "4px",
+    "stop-size": "4px",
+    "wave-amplitude": "3px",
+    "wave-length": "40px",
+    "circular-size": "40px",
+    "circular-track-width": "4px",
+    "loading-size": "48px",
+    "loading-indicator-size": "38px",
+  },
+  "drop-zone": {
+    padding: "{space.xl}",
+    radius: "{radius.lg}",
+    "outline-width": "1px",
   },
   card: {
     padding: "{space.lg}",

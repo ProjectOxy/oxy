@@ -9,6 +9,12 @@ plugin({
         createTheme: (_vars: object, overrides: object) => overrides,
         defineVars: (vars: object) => vars,
         defineConsts: (consts: object) => consts,
+        defineMarker: () => ({}),
+        defaultMarker: () => ({}),
+        when: new Proxy(
+          {},
+          { get: (_, relation) => (pseudo: string) => `${String(relation)}${pseudo}` },
+        ),
         keyframes: () => "",
         positionTry: () => "",
         viewTransitionClass: () => "",

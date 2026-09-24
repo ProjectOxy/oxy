@@ -31,6 +31,7 @@ describe("createTheme", () => {
       "--oxy-fab-sm-padding-inline": "var(--oxy-space-lg)",
       "--oxy-fab-lg-gap": "var(--oxy-space-lg)",
       "--oxy-card-padding": "var(--oxy-space-lg)",
+      "--oxy-text-field-padding-inline": "var(--oxy-space-lg)",
     });
     expect(resolveTokens(theme.tokens).get("card.padding")).toBe("24px");
   });
