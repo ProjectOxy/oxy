@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import type { ReactNode } from "react";
-import { afterEach, beforeAll, describe, expect, test } from "vite-plus/test";
+import { afterEach, beforeAll, describe, expect, test, vi } from "vite-plus/test";
 import { userEvent } from "vite-plus/test/browser";
 import {
   Label,
@@ -140,17 +140,29 @@ describe("interaction", () => {
       </OxyProvider>,
     );
 
-    await userEvent.keyboard("{Tab}{ArrowRight}");
     const track = screen.getByTestId("track");
-    await nextFrame();
-    await nextFrame();
-    const midway = Number(track.style.getPropertyValue("--oxy-slider-thumb-0"));
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    const positionAfter = async (elapsed: number) => {
+      vi.advanceTimersByTime(elapsed);
+      await nextFrame();
+      await nextFrame();
+      return Number(track.style.getPropertyValue("--oxy-slider-thumb-0"));
+    };
 
-    expect(midway).toBeGreaterThan(0);
-    expect(midway).toBeLessThan(50);
-    expect(Number(track.style.getPropertyValue("--oxy-slider-thumb-0"))).toBeCloseTo(50);
-    expect(centerOf("thumb-0")).toBeCloseTo(200, 0);
+    vi.useFakeTimers({ toFake: ["performance"] });
+    try {
+      await userEvent.keyboard("{Tab}{ArrowRight}");
+      const start = await positionAfter(0);
+      const midway = await positionAfter(50);
+      const settled = await positionAfter(1000);
+
+      expect(start).toBe(0);
+      expect(midway).toBeGreaterThan(0);
+      expect(midway).toBeLessThan(50);
+      expect(settled).toBeCloseTo(50);
+      expect(centerOf("thumb-0")).toBeCloseTo(200, 0);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 
