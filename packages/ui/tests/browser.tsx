@@ -36,6 +36,13 @@ export function tokenValue(property: string, value: string) {
 
 export const colorOf = (role: string) => tokenValue("color", `var(--oxy-color-${role})`);
 
+export const mixedOnSurface = (percent: number) =>
+  tokenValue("color", `color-mix(in srgb, var(--oxy-color-on-surface) ${percent}%, transparent)`);
+
+export const styleOf = (element: Element) => getComputedStyle(element);
+
+export const rectOf = (element: Element) => element.getBoundingClientRect();
+
 export const slotOf = (element: Element, slot: string) =>
   element.querySelector(`[data-slot="${slot}"]`) as HTMLElement;
 
