@@ -14,7 +14,13 @@
     "typecheck": "tsc -b",
     "test": "vp test",
     "build": "vp run -r build",
-    "ready": "vp check && tsc -b && vp test && vp run -r build"
+    "ready": "vp check && tsc -b && vp test && vp run -r build",
+    "storybook": "vp run @oxy/storybook#storybook",
+    "storybook:build": "vp run @oxy/storybook#storybook:build",
+    "visual": "vp run @oxy/storybook#visual",
+    "visual:update": "tools/storybook/visual/update.sh",
+    "rac-coverage": "vp run @oxy/checks#rac-coverage",
+    "contrast": "vp run @oxy/checks#contrast"
   },
   "devDependencies": {
     "@stylexjs/unplugin": "catalog:",

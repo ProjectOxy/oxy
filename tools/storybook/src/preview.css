@@ -1,0 +1,12 @@
+@layer oxy.priority1, utilities;
+
+html,
+body,
+#storybook-root {
+  margin: 0;
+  min-block-size: 100%;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}

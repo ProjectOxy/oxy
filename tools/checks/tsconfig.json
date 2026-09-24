@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["src", "tests", "*.config.ts", "stylex-runtime-stub.ts"],
+  "references": [
+    {
+      "path": "../../packages/tokens"
+    },
+    {
+      "path": "../../packages/material-theme"
+    },
+    {
+      "path": "../../packages/ui"
+    }
+  ],
+  "compilerOptions": {
+    "types": ["bun"]
+  }
+}

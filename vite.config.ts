@@ -11,7 +11,7 @@ export default defineConfig({
     options: { typeAware: true, typeCheck: true },
   },
   test: {
-    projects: ["packages/*"],
+    projects: ["packages/*", "tools/checks"],
   },
   run: {
     cache: true,
