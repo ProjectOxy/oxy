@@ -15,6 +15,15 @@ export const density = stylex.defineVars({
   "--oxy-density-step": "4px",
 });
 
+export const icon = stylex.defineVars({
+  "--oxy-icon-font-family": "'Material Symbols Outlined'",
+  "--oxy-icon-size": "24px",
+  "--oxy-icon-fill": "0",
+  "--oxy-icon-weight": "400",
+  "--oxy-icon-grade": "0",
+  "--oxy-icon-optical-size": "24",
+});
+
 export const button = stylex.defineVars({
   "--oxy-button-xs-height": "32px",
   "--oxy-button-xs-padding-inline": "var(--oxy-space-md)",

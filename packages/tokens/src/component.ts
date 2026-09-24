@@ -50,6 +50,14 @@ export const componentTokens = {
   density: {
     step: "4px",
   },
+  icon: {
+    "font-family": "'Material Symbols Outlined'",
+    size: "24px",
+    fill: "0",
+    weight: "400",
+    grade: "0",
+    "optical-size": "24",
+  },
   button: {
     xs: buttonSize(
       "32px",
