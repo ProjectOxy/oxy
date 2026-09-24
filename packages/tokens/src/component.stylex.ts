@@ -15,6 +15,15 @@ export const density = stylex.defineVars({
   "--oxy-density-step": "4px",
 });
 
+export const icon = stylex.defineVars({
+  "--oxy-icon-font-family": "'Material Symbols Outlined'",
+  "--oxy-icon-size": "24px",
+  "--oxy-icon-fill": "0",
+  "--oxy-icon-weight": "400",
+  "--oxy-icon-grade": "0",
+  "--oxy-icon-optical-size": "24",
+});
+
 export const button = stylex.defineVars({
   "--oxy-button-xs-height": "32px",
   "--oxy-button-xs-padding-inline": "var(--oxy-space-md)",
@@ -149,8 +158,8 @@ export const navigationItem = stylex.defineVars({
   "--oxy-navigation-item-label-gap": "var(--oxy-space-xs)",
   "--oxy-navigation-item-horizontal-gap": "var(--oxy-space-xs)",
   "--oxy-navigation-item-horizontal-padding-inline": "var(--oxy-space-lg)",
-  "--oxy-navigation-item-badge-size": "16px",
-  "--oxy-navigation-item-badge-dot-size": "6px",
+  "--oxy-navigation-item-badge-size": "var(--oxy-badge-large-size)",
+  "--oxy-navigation-item-badge-dot-size": "var(--oxy-badge-small-size)",
 });
 
 export const navigationBar = stylex.defineVars({
@@ -362,5 +371,61 @@ export const card = stylex.defineVars({
   "--oxy-card-padding": "var(--oxy-space-lg)",
   "--oxy-card-radius": "var(--oxy-radius-md)",
   "--oxy-card-elevation": "var(--oxy-elevation-level1)",
-  "--oxy-card-container-color": "var(--oxy-color-surface-container-low)",
+  "--oxy-card-elevated-container-color": "var(--oxy-color-surface-container-low)",
+  "--oxy-card-filled-container-color": "var(--oxy-color-surface-container-highest)",
+  "--oxy-card-outlined-container-color": "var(--oxy-color-surface)",
+  "--oxy-card-outline-color": "var(--oxy-color-outline-variant)",
+  "--oxy-card-outline-width": "1px",
+});
+
+export const badge = stylex.defineVars({
+  "--oxy-badge-small-size": "6px",
+  "--oxy-badge-large-size": "16px",
+  "--oxy-badge-padding-inline": "var(--oxy-space-xs)",
+});
+
+export const avatar = stylex.defineVars({
+  "--oxy-avatar-xs-size": "24px",
+  "--oxy-avatar-xs-icon-size": "16px",
+  "--oxy-avatar-xs-square-radius": "var(--oxy-radius-xs)",
+  "--oxy-avatar-sm-size": "32px",
+  "--oxy-avatar-sm-icon-size": "20px",
+  "--oxy-avatar-sm-square-radius": "var(--oxy-radius-sm)",
+  "--oxy-avatar-md-size": "40px",
+  "--oxy-avatar-md-icon-size": "24px",
+  "--oxy-avatar-md-square-radius": "var(--oxy-radius-md)",
+  "--oxy-avatar-lg-size": "56px",
+  "--oxy-avatar-lg-icon-size": "32px",
+  "--oxy-avatar-lg-square-radius": "var(--oxy-radius-lg)",
+  "--oxy-avatar-xl-size": "88px",
+  "--oxy-avatar-xl-icon-size": "48px",
+  "--oxy-avatar-xl-square-radius": "var(--oxy-radius-xl)",
+});
+
+export const keyboard = stylex.defineVars({
+  "--oxy-keyboard-min-size": "24px",
+  "--oxy-keyboard-padding-inline": "var(--oxy-space-xs)",
+  "--oxy-keyboard-radius": "var(--oxy-radius-xs)",
+  "--oxy-keyboard-outline-width": "1px",
+  "--oxy-keyboard-depth": "2px",
+});
+
+export const skeleton = stylex.defineVars({
+  "--oxy-skeleton-color": "var(--oxy-color-surface-container-highest)",
+  "--oxy-skeleton-highlight-color": "var(--oxy-color-surface-container-low)",
+  "--oxy-skeleton-text-radius": "var(--oxy-radius-xs)",
+  "--oxy-skeleton-rect-radius": "var(--oxy-radius-md)",
+  "--oxy-skeleton-circle-size": "40px",
+});
+
+export const emptyState = stylex.defineVars({
+  "--oxy-empty-state-max-inline-size": "400px",
+  "--oxy-empty-state-padding": "var(--oxy-space-xl)",
+  "--oxy-empty-state-expanded-padding": "var(--oxy-space-3xl)",
+  "--oxy-empty-state-gap": "var(--oxy-space-sm)",
+  "--oxy-empty-state-icon-size": "40px",
+  "--oxy-empty-state-icon-container-size": "88px",
+  "--oxy-empty-state-expanded-icon-container-size": "120px",
+  "--oxy-empty-state-icon-container-radius": "var(--oxy-radius-full)",
+  "--oxy-empty-state-actions-gap": "var(--oxy-space-sm)",
 });

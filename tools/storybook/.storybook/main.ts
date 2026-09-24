@@ -1,3 +1,4 @@
+import { materialSymbols } from "@oxy/icons/vite";
 import { oxyUtilities } from "@oxy/utilities/vite";
 import stylex from "@stylexjs/unplugin";
 import type { StorybookConfig } from "@storybook/react-vite";
@@ -15,7 +16,7 @@ const config: StorybookConfig = {
   core: { disableTelemetry: true },
   viteFinal: (viteConfig) =>
     mergeConfig(viteConfig, {
-      plugins: [stylex.vite(stylexOptions), oxyUtilities()],
+      plugins: [stylex.vite(stylexOptions), oxyUtilities(), materialSymbols()],
     }),
 };
 
