@@ -1,3 +1,4 @@
+import { oxyUtilities } from "@oxy/utilities/vite";
 import stylex from "@stylexjs/unplugin";
 import type { StorybookConfig } from "@storybook/react-vite";
 import { mergeConfig } from "vite-plus";
@@ -14,7 +15,7 @@ const config: StorybookConfig = {
   core: { disableTelemetry: true },
   viteFinal: (viteConfig) =>
     mergeConfig(viteConfig, {
-      plugins: [stylex.vite(stylexOptions)],
+      plugins: [stylex.vite(stylexOptions), oxyUtilities()],
     }),
 };
 

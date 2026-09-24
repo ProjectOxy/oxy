@@ -7,6 +7,12 @@
     "stylex.config.ts",
     "vite.config.ts",
     "packages/*/vite.config.ts",
+    "packages/*/vite.browser.config.ts",
     "tools/*/vite.config.ts"
+  ],
+  "references": [
+    {
+      "path": "packages/utilities"
+    }
   ]
 }

@@ -11,7 +11,7 @@ export default defineConfig({
     options: { typeAware: true, typeCheck: true },
   },
   test: {
-    projects: ["packages/*", "tools/checks"],
+    projects: ["packages/*", "packages/*/vite.browser.config.ts", "tools/checks"],
   },
   run: {
     cache: true,

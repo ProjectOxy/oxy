@@ -34,7 +34,7 @@ bun run check        # oxfmt formatting + oxlint (type-aware) checks
 bun run fmt          # format the repository
 bun run lint         # lint only
 bun run typecheck    # tsc -b over the project references
-bun run test         # vitest across all packages
+bun run test         # vitest across all packages (browser tests need Chromium, see below)
 bun run build        # build every package (vp pack) and dist/oxy.css
 bun run ready        # everything the verify job runs, in order
 
@@ -47,6 +47,8 @@ bun run contrast         # WCAG AA check of the semantic on-X / X color pairs
 ```
 
 Inside a package, `vp pack` builds it and `vp pack --watch` rebuilds on change.
+
+Tests named `*.browser.test.ts` run in headless Chromium through Vitest browser mode (`packages/*/vite.browser.config.ts`). Install the browser once with `packages/utilities/node_modules/.bin/playwright install chromium`.
 
 ## Storybook
 
@@ -62,6 +64,60 @@ Stories live next to their component (`packages/*/src/**/*.stories.tsx`); founda
 `tools/storybook/src/oxy-provider.tsx` is a stand-in for the `OxyProvider` planned in `@oxy/ui` (theme on a subtree + `I18nProvider`). It keeps the same props (`locale`, `scheme`, `seed`) so the decorator only needs its import swapped once the core lands; the theme comes from `createMaterialTheme` and its `vars` are applied inline on the subtree.
 
 Tag a story with `no-visual` to keep it out of the screenshot suite (for example, stories that depend on timers or randomness).
+
+## Utility classes
+
+`@oxy/utilities` generates atomic classes from the same token source as the components. Every class reads a token variable, so a theme on any subtree changes the utilities too.
+
+| Group      | Classes                                                                                                                                                                                                                     |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Spacing    | `p-*`, `px-*`, `py-*`, `ps-*`, `pe-*`, `pbs-*`, `pbe-*`, the same for `m-*` (plus `auto`), `gap-*`, `gap-x-*`, `gap-y-*` over `space.*`                                                                                     |
+| Sizing     | `w-*`, `h-*`, `min-w-*`, `max-w-*`, `min-h-*`, `max-h-*`, `size-*` over `space.*` and `auto`, `full`, `fit`, `min`, `max` (`w-screen` = `100dvw`)                                                                           |
+| Color      | `bg-*`, `text-*`, `border-*` over `color.*`; `border`, `border-0` set the width                                                                                                                                             |
+| Shape      | `rounded-*`, `rounded-{s,e,bs,be}-*`, `rounded-{ss,se,es,ee}-*` over `radius.*`; `shadow-*` over `elevation.*`                                                                                                              |
+| Typography | `type-{role}` sets family, size, line height, weight and tracking of `typography.{role}` (`type-body-large`, `type-title-medium-emphasized`); `font-*`                                                                      |
+| Layout     | `flex`, `grid`, `hidden`, …; `flex-row`, `flex-col`, `flex-wrap`, `flex-1`, `grow`, `shrink-0`, `items-*`, `justify-*`, `self-*`, `content-*`; `grid-cols-1…12`, `col-span-*`, `grid-rows-1…6`, `row-span-*`, `grid-flow-*` |
+
+Spacing and radius sides are logical: `s`/`e` are inline start/end, `bs`/`be` block start/end, so utilities flip with the direction like the components do.
+
+A modifier prefix applies a class in one state: `hover:`, `pressed:`, `focus-visible:`, `selected:`, `disabled:`, `invalid:` follow the React Aria `data-*` attributes; `dark:` applies inside the closest `[data-scheme="dark"]` subtree (a nested `[data-scheme="light"]` ends it); `rtl:` uses `:dir(rtl)`; `medium:`, `expanded:`, `large:`, `extra-large:` are mobile-first `min-width` breakpoints at the M3 window size classes (600, 840, 1200, 1600px). Modifiers do not stack.
+
+### Cascade order
+
+Priority is fixed with cascade layers, not with load order or specificity:
+
+```css
+@layer oxy.components, oxy.utilities;
+```
+
+- `oxy.components` holds everything StyleX emits (`useCSSLayers: stylexLayers` in `stylex.config.ts`, so StyleX writes `oxy.components.priority1…N`). A component's base styles and its variant classes are both StyleX styles merged with `stylex.props(base, ...variants)`, where the later style wins per property, so variants beat the base inside this layer.
+- `oxy.utilities` holds the utility classes and comes after `oxy.components`, so a utility beats any component style, including StyleX pseudo-class and media-query layers.
+- Both the StyleX CSS and the utilities CSS start by declaring this order, so it holds whichever file loads first. Unlayered CSS of the app still beats both layers.
+
+Wrappers in `@oxy/ui` keep to this: base and variants in StyleX, never in the utilities layer. Consumers who compile Oxy with their own StyleX setup pass `stylexLayers` from `@oxy/utilities` to `useCSSLayers`.
+
+### Generator
+
+- `@oxy/utilities/utilities.css` is the prebuilt full set for the default tokens.
+- The Vite plugin serves the set as a virtual module:
+
+  ```ts
+  // vite.config.ts
+  import { oxyUtilities } from "@oxy/utilities/vite";
+  export default {
+    plugins: [oxyUtilities({ tokens: { color: { brand: "#ff0066" } }, content: ["src/**/*.tsx"] })],
+  };
+
+  // entry
+  import "virtual:oxy/utilities.css";
+  ```
+
+- The CLI writes the same CSS: `oxy-utilities --config oxy.utilities.config.ts --out src/utilities.css` (the config module default-exports the same object; `--content <glob>` may be repeated).
+- `generateUtilities(config, used?)` from `@oxy/utilities` is the API behind both.
+
+`tokens` extends the default token tree. A new token (`color.brand`) gets its classes (`bg-brand`, `hover:bg-brand`, …) and a `:root` declaration of its variable; values may reference other tokens with `{color.primary}`. Tokens that already exist are declared by the StyleX token modules and themes, so passing a whole `theme.tokens` redeclares nothing. `breakpoints` replaces the breakpoint set and `modifiers` adds or overrides modifiers: a template with `&` is a selector (`"&[data-open]"`), one starting with `@` wraps the rules (`"@media (hover: hover)"`).
+
+The full set is about 700 KB (70 KB gzip). With `content` globs the CLI and `vite build` emit only the classes found in those files; the Vite dev server always serves the full set.
 
 ## Visual regressions
 
@@ -85,5 +141,5 @@ Tag a story with `no-visual` to keep it out of the screenshot suite (for example
 - `presence.fade`, `presence.scale` and `presence.slide` animate React Aria `data-entering` / `data-exiting`. Motion is an optional peer used only by `@oxy/motion/gestures` (`springTransition`, `animateSpring`) for gesture physics, so it never reaches bundles that skip that entry point.
 - `createMaterialTheme({ seed, scheme, contrast, overrides })` builds the color roles from a seed with `@material/material-color-utilities` (2025 spec, tonal spot; `contrast` is `standard`, `medium` or `high`), adds the M3 Expressive motion scheme and applies `overrides` last. `createNeutralTheme({ scheme, contrast, overrides })` is the brand-from-scratch base: a monochrome scheme, system font, small radii, flat shadows and non-bouncy springs. Both declare every semantic token plus the spring curves, so either one is complete on any subtree, including one nested inside the other.
 - Styles are written with logical properties so RTL needs no separate theme.
-- Cascade order is fixed with CSS layers: StyleX layers (`oxy.priority*`) hold component base styles and variants, `utilities` comes last so utility classes always win.
+- Cascade order is fixed with CSS layers: `oxy.components` (all StyleX output: component base styles, then variants) comes before `oxy.utilities`, so utility classes always win whatever the load order (see [Cascade order](#cascade-order)).
 - Shared StyleX compiler options live in `stylex.config.ts`; `vp pack` compiles each package, and `tools/css` collects the CSS of all packages into one file.
