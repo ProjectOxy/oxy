@@ -2,7 +2,7 @@ import { duration, easing } from "@oxy/motion/motion.stylex";
 import { tree } from "@oxy/tokens/component.stylex";
 import { color } from "@oxy/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
-import { createContext, useContext, type ReactNode, type Ref } from "react";
+import { createContext, useContext, useRef, useState, type ReactNode, type Ref } from "react";
 import {
   Tree as AriaTree,
   TreeHeader as AriaTreeHeader,
@@ -20,6 +20,7 @@ import {
   TreeSection as AriaTreeSection,
   composeRenderProps,
   type GridListHeaderProps as AriaTreeHeaderProps,
+  type Key,
 } from "react-aria-components";
 import {
   controlStyles,
@@ -66,7 +67,9 @@ const styles = stylex.create({
   },
   item: {
     paddingInlineStart: `calc(${listItem.paddingInline} + ${indent})`,
-    animationName: { default: null, ":not([data-level='1'])": expand },
+  },
+  revealed: {
+    animationName: expand,
     animationDuration: duration.spatialDefault,
     animationTimingFunction: easing.spatialDefault,
   },
@@ -101,6 +104,38 @@ const treeStyles = ({ density }: TreeVariants, { isDropTarget }: TreeRenderProps
   isDropTarget && styles.dropTarget,
 ];
 
+const RevealedKeysContext = createContext<ReadonlySet<Key>>(new Set());
+
+function useRevealedKeys({
+  expandedKeys,
+  defaultExpandedKeys,
+  onExpandedChange,
+}: Pick<AriaTreeProps<object>, "expandedKeys" | "defaultExpandedKeys" | "onExpandedChange">) {
+  const [revealedKeys, setRevealedKeys] = useState<ReadonlySet<Key>>(new Set());
+  const uncontrolledKeys = useRef<ReadonlySet<Key>>(new Set(defaultExpandedKeys));
+
+  const handleExpandedChange = (keys: Set<Key>) => {
+    const previous = expandedKeys === undefined ? uncontrolledKeys.current : new Set(expandedKeys);
+    uncontrolledKeys.current = keys;
+    const expanded = [...keys].filter((key) => !previous.has(key));
+    if (expanded.length > 0) setRevealedKeys((revealed) => new Set([...revealed, ...expanded]));
+    onExpandedChange?.(keys);
+  };
+
+  return [revealedKeys, handleExpandedChange] as const;
+}
+
+function hasRevealedAncestor({ id, state }: TreeItemRenderProps, revealedKeys: ReadonlySet<Key>) {
+  for (
+    let key = state.collection.getItem(id)?.parentKey;
+    key != null;
+    key = state.collection.getItem(key)?.parentKey
+  ) {
+    if (revealedKeys.has(key)) return true;
+  }
+  return false;
+}
+
 export function Tree<T extends object>({
   className,
   classNames,
@@ -111,10 +146,13 @@ export function Tree<T extends object>({
     { className, classNames, unstyled },
     { variants: treeVariants, styles: treeStyles, reset: [listContainer.reset] },
   );
+  const [revealedKeys, onExpandedChange] = useRevealedKeys(props);
 
   return (
     <UnstyledScope unstyled={unstyled}>
-      <AriaTree {...props} className={styled.className} />
+      <RevealedKeysContext value={revealedKeys}>
+        <AriaTree {...props} onExpandedChange={onExpandedChange} className={styled.className} />
+      </RevealedKeysContext>
     </UnstyledScope>
   );
 }
@@ -151,6 +189,7 @@ export function TreeItem<T extends object>({
   ...props
 }: TreeItemProps<T>) {
   const isActionable = props.onAction !== undefined || props.href !== undefined;
+  const revealedKeys = useContext(RevealedKeysContext);
   const styled = useStyled(
     { className, classNames, unstyled },
     {
@@ -161,6 +200,7 @@ export function TreeItem<T extends object>({
           isActionable || state.selectionMode !== "none" || state.hasChildItems,
         ),
         styles.item,
+        hasRevealedAncestor(state, revealedKeys) && styles.revealed,
       ],
       reset: [listItemReset],
     },
