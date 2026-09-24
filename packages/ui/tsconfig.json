@@ -4,5 +4,18 @@
     "types": ["vite/client"]
   },
   "include": ["src", "tests"],
-  "references": [{ "path": "../tokens" }, { "path": "../motion" }, { "path": "../utilities" }]
+  "references": [
+    {
+      "path": "../tokens"
+    },
+    {
+      "path": "../motion"
+    },
+    {
+      "path": "../icons"
+    },
+    {
+      "path": "../utilities"
+    }
+  ]
 }

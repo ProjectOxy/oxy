@@ -95,6 +95,7 @@
       "dependencies": {
         "@internationalized/date": "catalog:",
         "@internationalized/number": "catalog:",
+        "@oxy/icons": "workspace:*",
         "@oxy/motion": "workspace:*",
         "@oxy/tokens": "workspace:*",
         "motion": "catalog:",

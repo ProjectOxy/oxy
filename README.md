@@ -149,6 +149,17 @@ Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. 
 - **M3 navigation** is built on `NavigationItem`, a React Aria `Link` with `icon`, `badge` (`true` for a dot) and the `touchTarget`, `indicator`, `stateLayer`, `focusRing`, `icon`, `badge` and `label` slots; mark the current destination with `aria-current="page"`. The container decides the item layout: `NavigationBar` (`adaptive` by default: stacked items in compact windows, side-by-side items from 600px; or `vertical`/`horizontal`), `NavigationRail` (`collapsed`/`expanded`), `NavigationDrawer` and `ModalNavigationDrawer` (React Aria `ModalOverlay` + `Dialog`, slides in from the inline start), with `NavigationSection` for headlines.
 - **`AppBar`** is an M3 top app bar with `title`, `subtitle`, `leading` and `trailing`: `small`/`medium`/`large`, `start`/`center` and `scrolled` for the on-scroll container color.
 
+### Display
+
+- **`Icon`** from `@oxy/icons` is re-exported as `@oxy/ui/icon`. Components size the icons inside them through `--oxy-icon-size` (buttons, FABs, avatars, navigation items, empty states), and the `icon.*` tokens set fill, weight, grade and optical size on any themed subtree.
+- **`Card`** is `elevated` (default), `filled` or `outlined`, with the `card.*` tokens for padding, radius, elevation and container colors; `p-none` makes room for full-bleed media.
+- **`Avatar`** shows `src` once it loads and its children (initials or an `Icon`) while loading or after an error; `data-status` and the `className` function carry `none`/`loading`/`loaded`/`error`. `xs`–`xl`, `round`/`square` and the four tones; slots `image` and `fallback`. With `alt` it is a labelled `img`.
+- **`Badge`** is a 6px dot without a `value` and a 16px count with one, formatted for the locale and capped at `max` (`999+`). Children become the anchor: `<Badge value={3}><Icon icon={mail} /></Badge>` places the badge on the icon's top-end corner, mirrored in RTL (slot `anchor`). `error` by default, or any tone.
+- **`Keyboard`** wraps React Aria's `<kbd>`: a `keycap` by default or `plain` text for menu shortcuts. Inside a `MenuItem` React Aria links it to the item as its keyboard shortcut.
+- **`Skeleton`** is a `text` line (1em high, centered in the line), a `rect` or a `circle`, animated with `pulse` (default), `wave` (runs with the reading direction) or `still`. The cycle is `2 × motion.duration.extra-long4`, so it stops with `motion.enabled` and reduced motion. Children size the placeholder and stay hidden and inert.
+- **`EmptyState`** takes `icon`, `headline` (a React Aria `Heading`, `headingLevel` 2 by default), `description` and actions as children; tones color the icon container, `start` aligns it to the reading direction. Mobile-first: an 88px icon container and `title-large` headline, 120px and `headline-small` from 600px.
+- **`Divider`** is `Separator` under its M3 name.
+
 [CONTRIBUTING.md](CONTRIBUTING.md) walks through wrapping a React Aria component, with `Button` as the reference.
 
 ## Visual regressions

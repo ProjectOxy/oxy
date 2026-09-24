@@ -3,6 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 import { useLayoutEffect, type ReactNode } from "react";
 import { OxyProvider, type Scheme } from "@oxy/ui";
 import { useSeedTheme } from "./seed-theme.ts";
+import "virtual:oxy/material-symbols.css";
 import "virtual:oxy/utilities.css";
 import "./preview.css";
 
