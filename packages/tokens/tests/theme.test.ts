@@ -44,6 +44,12 @@ describe("createTheme", () => {
       "--oxy-navigation-drawer-headline-padding-inline": "var(--oxy-space-lg)",
       "--oxy-app-bar-title-padding-inline": "var(--oxy-space-lg)",
       "--oxy-table-cell-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-dialog-gap": "var(--oxy-space-lg)",
+      "--oxy-dialog-fullscreen-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-popover-padding": "var(--oxy-space-lg)",
+      "--oxy-tooltip-rich-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-snackbar-padding-inline-start": "var(--oxy-space-lg)",
+      "--oxy-snackbar-margin": "var(--oxy-space-lg)",
     });
     expect(resolveTokens(theme.tokens).get("card.padding")).toBe("24px");
   });

@@ -20,7 +20,7 @@ const partOfSlot: Partial<Record<string, FieldPartName>> = {
 
 const styles = stylex.create({
   root: {
-    color: color["--oxy-color-on-surface-variant"],
+    color: `var(--oxy-supporting-color, ${color["--oxy-color-on-surface-variant"]})`,
     fontFamily: typography["--oxy-typography-body-medium-family"],
     fontSize: typography["--oxy-typography-body-medium-size"],
     lineHeight: typography["--oxy-typography-body-medium-line-height"],
