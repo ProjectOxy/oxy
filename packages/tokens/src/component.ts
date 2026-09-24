@@ -4,6 +4,14 @@ export const componentTokens = {
     offset: "2px",
     color: "{color.secondary}",
   },
+  icon: {
+    "font-family": "'Material Symbols Outlined'",
+    size: "24px",
+    fill: "0",
+    weight: "400",
+    grade: "0",
+    "optical-size": "24",
+  },
   button: {
     height: "40px",
     "padding-inline": "{space.lg}",

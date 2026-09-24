@@ -4,14 +4,14 @@ React component library on top of [React Aria Components](https://react-spectrum
 
 ## Packages
 
-| Package               | Purpose                                                                            |
-| --------------------- | ---------------------------------------------------------------------------------- |
-| `@oxy/tokens`         | Primitive, semantic and component tokens, `createTheme`, build-time contrast check |
-| `@oxy/material-theme` | Material Design 3 Expressive theme built on the tokens (`createTheme`)             |
-| `@oxy/motion`         | Motion helpers for StyleX, spring → `linear()`, Motion gestures (`/gestures`)      |
-| `@oxy/icons`          | Material Symbols icon component                                                    |
-| `@oxy/utilities`      | Token-driven utility class layer                                                   |
-| `@oxy/ui`             | Components and M3 compositions, one entry per component (`@oxy/ui/button`)         |
+| Package               | Purpose                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| `@oxy/tokens`         | Primitive, semantic and component tokens, `createTheme`, build-time contrast check    |
+| `@oxy/material-theme` | Material Design 3 Expressive theme built on the tokens (`createTheme`)                |
+| `@oxy/motion`         | Motion helpers for StyleX, spring → `linear()`, Motion gestures (`/gestures`)         |
+| `@oxy/icons`          | Material Symbols `Icon`, one export per symbol, Vite font-subsetting plugin (`/vite`) |
+| `@oxy/utilities`      | Token-driven utility class layer                                                      |
+| `@oxy/ui`             | Components and M3 compositions, one entry per component (`@oxy/ui/button`)            |
 
 Private workspaces under `tools/`:
 
@@ -83,6 +83,9 @@ Tag a story with `no-visual` to keep it out of the screenshot suite (for example
 - `createTheme(overrides, base?)` returns `vars` to set as inline style on any subtree. It re-declares every token aliasing an override, so component tokens follow the theme, and nested themes inherit what they do not override.
 - Motion tokens (`motion.duration.*`, `motion.easing.*`, `motion.spring.*`, `motion.enabled`) live in `@oxy/tokens`. `bun run --cwd packages/motion generate` writes `motion.stylex.ts`: `duration` and `easing` consts for StyleX, springs converted to CSS `linear()` easings, and `--oxy-motion-allowed`, which drops to `0` under `prefers-reduced-motion`. Every `duration` const is multiplied by `--oxy-motion-enabled` and `--oxy-motion-allowed`, so `createTheme({ motion: { enabled: "0" } })` or the user's reduced-motion setting turns motion off on any subtree. Themes that override springs add `springVars(theme.tokens.motion.spring)` to their vars.
 - `presence.fade`, `presence.scale` and `presence.slide` animate React Aria `data-entering` / `data-exiting`. Motion is an optional peer used only by `@oxy/motion/gestures` (`springTransition`, `animateSpring`) for gesture physics, so it never reaches bundles that skip that entry point.
+- `@oxy/icons` renders Material Symbols from the variable font, so `icon.fill`, `icon.weight`, `icon.grade` and `icon.optical-size` tokens drive the `FILL`, `wght`, `GRAD` and `opsz` axes on any themed subtree. Every symbol is its own export (`arrowBack`, `_3dRotation`, `delete_`) carrying its codepoint, so bundles keep only the symbols they import. `bun run --cwd packages/icons generate` rebuilds `symbols.ts` from the `material-symbols` font; a test fails when it is stale.
+- `materialSymbols()` from `@oxy/icons/vite` serves the full font in dev and, on build, emits a woff2 subset with only the codepoints left in the bundle; import `virtual:oxy/material-symbols.css` once for the `@font-face`. Rounded and sharp styles come from `materialSymbols({ style })` together with the `icon.font-family` token.
+- `Icon` flips directional symbols (arrows, chevrons, back/forward, undo/redo, …) inside an RTL locale from React Aria's `I18nProvider`; `mirrorInRtl` overrides the per-symbol default.
 - Styles are written with logical properties so RTL needs no separate theme.
 - Cascade order is fixed with CSS layers: StyleX layers (`oxy.priority*`) hold component base styles and variants, `utilities` comes last so utility classes always win.
 - Shared StyleX compiler options live in `stylex.config.ts`; `vp pack` compiles each package, and `tools/css` collects the CSS of all packages into one file.

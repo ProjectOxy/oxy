@@ -7,6 +7,15 @@ export const focusRing = stylex.defineVars({
   "--oxy-focus-ring-color": "var(--oxy-color-secondary)",
 });
 
+export const icon = stylex.defineVars({
+  "--oxy-icon-font-family": "'Material Symbols Outlined'",
+  "--oxy-icon-size": "24px",
+  "--oxy-icon-fill": "0",
+  "--oxy-icon-weight": "400",
+  "--oxy-icon-grade": "0",
+  "--oxy-icon-optical-size": "24",
+});
+
 export const button = stylex.defineVars({
   "--oxy-button-height": "40px",
   "--oxy-button-padding-inline": "var(--oxy-space-lg)",
