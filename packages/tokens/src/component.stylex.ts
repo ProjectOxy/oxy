@@ -104,6 +104,95 @@ export const toolbar = stylex.defineVars({
   "--oxy-toolbar-floating-elevation": "var(--oxy-elevation-level3)",
 });
 
+export const separator = stylex.defineVars({
+  "--oxy-separator-thickness": "1px",
+  "--oxy-separator-inset": "var(--oxy-space-lg)",
+});
+
+export const breadcrumbs = stylex.defineVars({
+  "--oxy-breadcrumbs-gap": "var(--oxy-space-xs)",
+  "--oxy-breadcrumbs-separator-size": "18px",
+});
+
+export const tabs = stylex.defineVars({
+  "--oxy-tabs-height": "48px",
+  "--oxy-tabs-icon-height": "64px",
+  "--oxy-tabs-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-tabs-stacked-gap": "var(--oxy-space-2xs)",
+  "--oxy-tabs-inline-gap": "var(--oxy-space-sm)",
+  "--oxy-tabs-icon-size": "24px",
+  "--oxy-tabs-divider-width": "1px",
+  "--oxy-tabs-primary-indicator-thickness": "3px",
+  "--oxy-tabs-primary-indicator-min-length": "24px",
+  "--oxy-tabs-secondary-indicator-thickness": "2px",
+  "--oxy-tabs-scrollable-inset": "52px",
+  "--oxy-tabs-panel-shift": "30px",
+});
+
+export const disclosure = stylex.defineVars({
+  "--oxy-disclosure-height": "56px",
+  "--oxy-disclosure-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-disclosure-gap": "var(--oxy-space-lg)",
+  "--oxy-disclosure-indicator-size": "24px",
+  "--oxy-disclosure-radius": "var(--oxy-radius-lg)",
+  "--oxy-disclosure-segment-radius": "var(--oxy-radius-xs)",
+  "--oxy-disclosure-outline-width": "1px",
+  "--oxy-disclosure-group-gap": "var(--oxy-space-sm)",
+  "--oxy-disclosure-segmented-gap": "var(--oxy-space-2xs)",
+});
+
+export const navigationItem = stylex.defineVars({
+  "--oxy-navigation-item-indicator-width": "56px",
+  "--oxy-navigation-item-indicator-height": "32px",
+  "--oxy-navigation-item-horizontal-indicator-height": "40px",
+  "--oxy-navigation-item-icon-size": "24px",
+  "--oxy-navigation-item-label-gap": "var(--oxy-space-xs)",
+  "--oxy-navigation-item-horizontal-gap": "var(--oxy-space-xs)",
+  "--oxy-navigation-item-horizontal-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-navigation-item-badge-size": "16px",
+  "--oxy-navigation-item-badge-dot-size": "6px",
+});
+
+export const navigationBar = stylex.defineVars({
+  "--oxy-navigation-bar-height": "64px",
+  "--oxy-navigation-bar-horizontal-gap": "var(--oxy-space-sm)",
+  "--oxy-navigation-bar-container-color": "var(--oxy-color-surface-container)",
+});
+
+export const navigationRail = stylex.defineVars({
+  "--oxy-navigation-rail-width": "96px",
+  "--oxy-navigation-rail-expanded-width": "220px",
+  "--oxy-navigation-rail-padding-block": "var(--oxy-space-2xl)",
+  "--oxy-navigation-rail-item-gap": "var(--oxy-space-xs)",
+  "--oxy-navigation-rail-item-height": "64px",
+  "--oxy-navigation-rail-expanded-item-height": "56px",
+  "--oxy-navigation-rail-expanded-padding-inline": "20px",
+  "--oxy-navigation-rail-container-color": "var(--oxy-color-surface)",
+});
+
+export const navigationDrawer = stylex.defineVars({
+  "--oxy-navigation-drawer-width": "360px",
+  "--oxy-navigation-drawer-padding": "var(--oxy-space-md)",
+  "--oxy-navigation-drawer-radius": "var(--oxy-radius-lg)",
+  "--oxy-navigation-drawer-item-height": "56px",
+  "--oxy-navigation-drawer-item-gap": "var(--oxy-space-md)",
+  "--oxy-navigation-drawer-item-padding-inline-end": "var(--oxy-space-xl)",
+  "--oxy-navigation-drawer-headline-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-navigation-drawer-container-color": "var(--oxy-color-surface-container-low)",
+  "--oxy-navigation-drawer-elevation": "var(--oxy-elevation-level1)",
+});
+
+export const appBar = stylex.defineVars({
+  "--oxy-app-bar-small-height": "64px",
+  "--oxy-app-bar-medium-height": "112px",
+  "--oxy-app-bar-large-height": "120px",
+  "--oxy-app-bar-padding-inline": "var(--oxy-space-xs)",
+  "--oxy-app-bar-title-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-app-bar-medium-padding-block-end": "var(--oxy-space-md)",
+  "--oxy-app-bar-large-padding-block-end": "var(--oxy-space-md)",
+  "--oxy-app-bar-scrolled-color": "var(--oxy-color-surface-container)",
+});
+
 export const textField = stylex.defineVars({
   "--oxy-text-field-height": "56px",
   "--oxy-text-field-padding-inline": "var(--oxy-space-lg)",

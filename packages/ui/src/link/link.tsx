@@ -1,7 +1,7 @@
 import { duration, easing } from "@oxy/motion/motion.stylex";
 import { color, radius, state } from "@oxy/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
-import type { Ref } from "react";
+import { use, type Ref } from "react";
 import {
   Link as AriaLink,
   type LinkProps as AriaLinkProps,
@@ -12,6 +12,7 @@ import { defineVariants, type VariantSelection } from "../core/variants.ts";
 import { focusRing } from "../styles/interaction.ts";
 import { tones } from "../styles/tone.ts";
 import { tone } from "../styles/vars.stylex.ts";
+import { LinkPartContext } from "./part.ts";
 
 export const linkVariants = defineVariants(
   {
@@ -85,7 +86,12 @@ function linkStyles(
 export function Link({ className, classNames, unstyled, ...props }: LinkProps) {
   const styled = useStyled(
     { className, classNames, unstyled },
-    { variants: linkVariants, styles: linkStyles, reset: [styles.reset] },
+    {
+      variants: linkVariants,
+      styles: linkStyles,
+      reset: [styles.reset],
+      part: use(LinkPartContext),
+    },
   );
 
   return <AriaLink {...props} className={styled.className} />;

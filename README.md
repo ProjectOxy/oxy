@@ -136,6 +136,14 @@ Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. 
 - **`Tag`** chips are `assist`, `filter`, `input` or `suggestion`, `flat` or `elevated`. The group picks the default from its behaviour (`onRemove` → input, a selection mode → filter, otherwise assist); a class on `TagGroup` sets it for every chip and a class on a `Tag` overrides it.
 - `unstyled` on a collection or a field reaches its items and parts.
 
+### Navigation and structure
+
+- **`Tabs`** keep the React Aria composition (`TabList`, `Tab`, `TabPanels`, `TabPanel`). `TabList` takes `primary`/`secondary` and `fixed`/`scrollable`; `Tab` adds an `icon` and the `stateLayer`, `content`, `icon` and `indicator` slots. The indicator is a React Aria `SelectionIndicator` that slides between tabs on a spatial spring; panels inside `TabPanels` switch with an M3 shared-axis transition that follows the direction of travel and the text direction. `SelectionIndicator` is also exported on its own.
+- **`Disclosure`** is `plain`, `filled`, `outlined` or `segmented`; `DisclosureTitle` renders the heading with the trigger button and chevron, `DisclosurePanel` animates its height through React Aria's `--disclosure-panel-height`. `classNames` on the disclosure reaches `heading`, `trigger`, `stateLayer`, `indicator`, `panel` and `content`. A class on `DisclosureGroup` sets the variant of every disclosure in it (`segmented` by default: joined items with small inner corners, an open item rounds fully).
+- **`Breadcrumbs`** style the `Link`s inside each `Breadcrumb` (slot `link`) and add a chevron `separator` that mirrors in RTL. **`Separator`** is an M3 divider: `full-width`, `inset` or `middle-inset`, horizontal or vertical, also as a collection separator in menus and lists.
+- **M3 navigation** is built on `NavigationItem`, a React Aria `Link` with `icon`, `badge` (`true` for a dot) and the `touchTarget`, `indicator`, `stateLayer`, `focusRing`, `icon`, `badge` and `label` slots; mark the current destination with `aria-current="page"`. The container decides the item layout: `NavigationBar` (`adaptive` by default: stacked items in compact windows, side-by-side items from 600px; or `vertical`/`horizontal`), `NavigationRail` (`collapsed`/`expanded`), `NavigationDrawer` and `ModalNavigationDrawer` (React Aria `ModalOverlay` + `Dialog`, slides in from the inline start), with `NavigationSection` for headlines.
+- **`AppBar`** is an M3 top app bar with `title`, `subtitle`, `leading` and `trailing`: `small`/`medium`/`large`, `start`/`center` and `scrolled` for the on-scroll container color.
+
 [CONTRIBUTING.md](CONTRIBUTING.md) walks through wrapping a React Aria component, with `Button` as the reference.
 
 ## Visual regressions
