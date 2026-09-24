@@ -18,6 +18,9 @@ const paths = {
   arrowDropDown: "m7 10 5 5 5-5z",
   arrowUpward: "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z",
   chevronForward: "M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z",
+  chevronBackward: "M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z",
+  calendar:
+    "M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 18H4V10h16zm0-13H4V5h16z",
   expandMore: "M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z",
   close:
     "M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z",
@@ -26,7 +29,7 @@ const paths = {
     "M9 20a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4m6 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4",
 };
 
-const mirroredGlyphs = new Set<Glyph>(["chevronForward"]);
+const mirroredGlyphs = new Set<Glyph>(["chevronForward", "chevronBackward"]);
 
 export type Glyph = keyof typeof paths;
 
