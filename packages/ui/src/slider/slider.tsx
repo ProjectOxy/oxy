@@ -8,6 +8,7 @@ import {
   useContext,
   useLayoutEffect,
   useRef,
+  type ComponentType,
   type CSSProperties,
   type ReactNode,
   type Ref,
@@ -93,10 +94,11 @@ type SliderState = SliderRenderProps["state"];
 interface SliderStyle {
   variants: SliderVariants;
   classNames: Partial<Record<SliderSlot, string>>;
+  Track?: ComponentType<SliderTrackProps>;
 }
 
 const disabledContent = `color-mix(in srgb, ${color["--oxy-color-on-surface"]} calc(${state["--oxy-state-disabled-content"]} * 100%), transparent)`;
-const SliderStyleContext = createContext<SliderStyle>({
+export const SliderStyleContext = createContext<SliderStyle>({
   variants: sliderVariants.defaults,
   classNames: {},
 });
@@ -433,7 +435,12 @@ export function SliderOutput({ className, unstyled, ...props }: SliderOutputProp
 
 export const sliderTrackVariants = defineVariants({}, {});
 
-export function SliderTrack({
+export function SliderTrack(props: SliderTrackProps) {
+  const { Track = StandardSliderTrack } = useContext(SliderStyleContext);
+  return <Track {...props} />;
+}
+
+function StandardSliderTrack({
   className,
   unstyled,
   style,

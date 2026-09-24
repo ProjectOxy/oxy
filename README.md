@@ -141,6 +141,17 @@ Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. 
 - **`Table`** keeps the React Aria composition (`TableHeader`, `Column`, `TableBody`, `Row`, `Cell`, `TableFooter`, `TableLoadMoreItem`) and takes `standard`/`outlined` and a density. `TableHeader` and `Row` add the drag handle and selection checkbox columns themselves when the table allows dragging or toggle selection (`classNames={{ selection, dragHandle }}`); sortable `Column`s show a `sortIndicator` slot. `ResizableTableContainer` with `ColumnResizer` resizes columns, a `treeColumn` renders expandable rows with a `chevron`, and React Aria's `Virtualizer` with `TableLayout` virtualizes rows.
 - **`Tree`** items (`TreeItem` + `TreeItemContent`, `TreeSection` + `TreeHeader`, `TreeLoadMoreItem`) are M3 list items indented by level, with the `stateLayer`, `dragHandle`, `selection`, `chevron` and `content` slots set on the `TreeItem`. The chevron turns and new children slide in on expand.
 
+### Color
+
+- **`ColorArea`, `ColorSlider` and `ColorWheel`** keep the React Aria composition and share one `ColorThumb`: a 24px circle filled with the current color, with a `color-thumb.border-color` rim, an elevation shadow, the M3 focus ring, a 48px touch target, and growth to 32px on a spatial spring while it is dragged. The parent styles its thumb through `classNames.thumb`, which may be a function of the parent state. Disabled controls fade to `state.disabled-content` and lose their saturation.
+- **`ColorArea`** is a square, `color-area.size` (256px) wide but never wider than its container, with `color-area.radius` corners.
+- **`ColorSlider`** takes the same `Label`, `SliderOutput` and `SliderTrack` as `Slider` (`classNames` covers `label`, `output`, `track` and `thumb`). Inside a color slider, `SliderTrack` is a `color-slider.track-height` pill with the channel gradient and a checkerboard under transparent colors. Vertical sliders are `color-slider.vertical-length` tall.
+- **`ColorWheel`** defaults `outerRadius` to 96 and `innerRadius` to 68 (a 192px ring) and keeps both as props; `ColorWheelTrack` takes the `track` slot.
+- **`ColorSwatch`** is `xs`–`xl` (24–64px) and `round`/`square`, with a hairline `color-swatch.outline-color` edge and a checkerboard under transparent colors. `className` and `style` functions receive the `color`.
+- **`ColorSwatchPicker`** sets the size and shape of every swatch in it (`sm round` by default) and follows `layout` (`grid` wraps, `stack` stacks). The selected swatch gets a `color-swatch.selected-ring-color` inner ring and items shrink while pressed; `classNames.item` and `classNames.swatch` are resolved against each item's state.
+- **`ColorField`** is an M3 text field (`filled`/`outlined`, tone, density) for a hex value or one `channel`, with the `TextField` slots.
+- **`ColorPicker`** is React Aria's, re-exported: it renders no element and keeps every color control inside it in sync.
+
 ### Navigation and structure
 
 - **`Tabs`** keep the React Aria composition (`TabList`, `Tab`, `TabPanels`, `TabPanel`). `TabList` takes `primary`/`secondary` and `fixed`/`scrollable`; `Tab` adds an `icon` and the `stateLayer`, `content`, `icon` and `indicator` slots. The indicator is a React Aria `SelectionIndicator` that slides between tabs on a spatial spring; panels inside `TabPanels` switch with an M3 shared-axis transition that follows the direction of travel and the text direction. `SelectionIndicator` is also exported on its own.

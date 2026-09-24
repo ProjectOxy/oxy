@@ -10,6 +10,14 @@ export * from "./card/index.ts";
 export * from "./checkbox/index.ts";
 export * from "./checkbox-group/index.ts";
 export * from "./close-button/index.ts";
+export * from "./color-area/index.ts";
+export * from "./color-field/index.ts";
+export * from "./color-picker/index.ts";
+export * from "./color-slider/index.ts";
+export * from "./color-swatch/index.ts";
+export * from "./color-swatch-picker/index.ts";
+export * from "./color-thumb/index.ts";
+export * from "./color-wheel/index.ts";
 export * from "./combo-box/index.ts";
 export {
   joinClassNames,
