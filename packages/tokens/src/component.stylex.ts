@@ -308,6 +308,28 @@ export const menu = stylex.defineVars({
   "--oxy-menu-selected-item-radius": "var(--oxy-radius-md)",
 });
 
+export const table = stylex.defineVars({
+  "--oxy-table-header-height": "56px",
+  "--oxy-table-row-height": "52px",
+  "--oxy-table-cell-padding-inline": "var(--oxy-space-lg)",
+  "--oxy-table-cell-padding-inline-compact": "var(--oxy-space-md)",
+  "--oxy-table-divider-width": "1px",
+  "--oxy-table-radius": "var(--oxy-radius-md)",
+  "--oxy-table-sort-icon-size": "18px",
+  "--oxy-table-resizer-width": "16px",
+  "--oxy-table-resizer-indicator-width": "2px",
+  "--oxy-table-indent": "var(--oxy-space-xl)",
+});
+
+export const tree = stylex.defineVars({
+  "--oxy-tree-item-height": "48px",
+  "--oxy-tree-item-padding-inline": "var(--oxy-space-md)",
+  "--oxy-tree-item-gap": "var(--oxy-space-sm)",
+  "--oxy-tree-item-icon-size": "24px",
+  "--oxy-tree-item-radius": "var(--oxy-radius-full)",
+  "--oxy-tree-indent": "var(--oxy-space-xl)",
+});
+
 export const dropdown = stylex.defineVars({
   "--oxy-dropdown-width": "280px",
   "--oxy-dropdown-height": "56px",

@@ -53,6 +53,7 @@
     "./slider": "./src/slider/index.ts",
     "./split-button": "./src/split-button/index.ts",
     "./switch": "./src/switch/index.ts",
+    "./table": "./src/table/index.ts",
     "./tabs": "./src/tabs/index.ts",
     "./tag-group": "./src/tag-group/index.ts",
     "./text": "./src/text/index.ts",
@@ -61,6 +62,7 @@
     "./toggle-button": "./src/toggle-button/index.ts",
     "./toggle-button-group": "./src/toggle-button-group/index.ts",
     "./toolbar": "./src/toolbar/index.ts",
+    "./tree": "./src/tree/index.ts",
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -104,6 +106,7 @@
       "./slider": "./dist/slider/index.js",
       "./split-button": "./dist/split-button/index.js",
       "./switch": "./dist/switch/index.js",
+      "./table": "./dist/table/index.js",
       "./tabs": "./dist/tabs/index.js",
       "./tag-group": "./dist/tag-group/index.js",
       "./text": "./dist/text/index.js",
@@ -112,6 +115,7 @@
       "./toggle-button": "./dist/toggle-button/index.js",
       "./toggle-button-group": "./dist/toggle-button-group/index.js",
       "./toolbar": "./dist/toolbar/index.js",
+      "./tree": "./dist/tree/index.js",
       "./package.json": "./package.json"
     },
     "access": "public"

@@ -136,6 +136,11 @@ Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. 
 - **`Tag`** chips are `assist`, `filter`, `input` or `suggestion`, `flat` or `elevated`. The group picks the default from its behaviour (`onRemove` → input, a selection mode → filter, otherwise assist); a class on `TagGroup` sets it for every chip and a class on a `Tag` overrides it.
 - `unstyled` on a collection or a field reaches its items and parts.
 
+### Table and Tree
+
+- **`Table`** keeps the React Aria composition (`TableHeader`, `Column`, `TableBody`, `Row`, `Cell`, `TableFooter`, `TableLoadMoreItem`) and takes `standard`/`outlined` and a density. `TableHeader` and `Row` add the drag handle and selection checkbox columns themselves when the table allows dragging or toggle selection (`classNames={{ selection, dragHandle }}`); sortable `Column`s show a `sortIndicator` slot. `ResizableTableContainer` with `ColumnResizer` resizes columns, a `treeColumn` renders expandable rows with a `chevron`, and React Aria's `Virtualizer` with `TableLayout` virtualizes rows.
+- **`Tree`** items (`TreeItem` + `TreeItemContent`, `TreeSection` + `TreeHeader`, `TreeLoadMoreItem`) are M3 list items indented by level, with the `stateLayer`, `dragHandle`, `selection`, `chevron` and `content` slots set on the `TreeItem`. The chevron turns and new children slide in on expand.
+
 ### Navigation and structure
 
 - **`Tabs`** keep the React Aria composition (`TabList`, `Tab`, `TabPanels`, `TabPanel`). `TabList` takes `primary`/`secondary` and `fixed`/`scrollable`; `Tab` adds an `icon` and the `stateLayer`, `content`, `icon` and `indicator` slots. The indicator is a React Aria `SelectionIndicator` that slides between tabs on a spatial spring; panels inside `TabPanels` switch with an M3 shared-axis transition that follows the direction of travel and the text direction. `SelectionIndicator` is also exported on its own.

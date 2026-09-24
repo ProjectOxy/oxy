@@ -43,6 +43,7 @@ describe("createTheme", () => {
       "--oxy-navigation-item-horizontal-padding-inline": "var(--oxy-space-lg)",
       "--oxy-navigation-drawer-headline-padding-inline": "var(--oxy-space-lg)",
       "--oxy-app-bar-title-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-table-cell-padding-inline": "var(--oxy-space-lg)",
     });
     expect(resolveTokens(theme.tokens).get("card.padding")).toBe("24px");
   });

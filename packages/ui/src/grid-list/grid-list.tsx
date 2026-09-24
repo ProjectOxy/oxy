@@ -1,11 +1,7 @@
-import { duration, easing } from "@oxy/motion/motion.stylex";
-import { list } from "@oxy/tokens/component.stylex";
-import { color, state } from "@oxy/tokens/semantic.stylex";
+import { color } from "@oxy/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
 import type { ReactNode, Ref } from "react";
 import {
-  Button,
-  Checkbox,
   GridList as AriaGridList,
   GridListHeader as AriaGridListHeader,
   type GridListHeaderProps as AriaGridListHeaderProps,
@@ -20,7 +16,7 @@ import {
   type GridListSectionProps as AriaGridListSectionProps,
   composeRenderProps,
 } from "react-aria-components";
-import { GlyphIcon } from "../collection/glyphs.tsx";
+import { controlStyles, DragHandle, SelectionCheckbox } from "../collection/controls.tsx";
 import {
   listItemLayers,
   textValueOf,
@@ -28,17 +24,13 @@ import {
   type ListItemSlot,
 } from "../collection/item.tsx";
 import { listContainer, listItemReset, listItemStyles, listParts } from "../collection/list.ts";
-import { listItem } from "../collection/list.stylex.ts";
 import { useStaticClassName, type StaticStyledProps } from "../collection/static.ts";
 import { useStyled, type StyledProps } from "../core/styled.ts";
 import { UnstyledScope } from "../core/unstyled-scope.tsx";
 import { defineVariants, type VariantSelection } from "../core/variants.ts";
 import { densities } from "../styles/density.ts";
-import { useUnstyled } from "../provider/context.ts";
 import { focusRing } from "../styles/interaction.ts";
 import { typeScale } from "../collection/type.ts";
-
-const disabledContent = `color-mix(in srgb, ${color["--oxy-color-on-surface"]} calc(${state["--oxy-state-disabled-content"]} * 100%), transparent)`;
 
 const styles = stylex.create({
   dropTarget: {
@@ -46,54 +38,6 @@ const styles = stylex.create({
     outlineWidth: 2,
     outlineOffset: -2,
     outlineColor: color["--oxy-color-primary"],
-  },
-  control: {
-    appearance: "none",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    inlineSize: listItem.iconSize,
-    blockSize: listItem.iconSize,
-    margin: 0,
-    padding: 0,
-    borderWidth: 0,
-    borderRadius: list["--oxy-list-selection-radius"],
-    backgroundColor: "transparent",
-    color: listItem.supporting,
-    outlineOffset: 0,
-    cursor: "pointer",
-  },
-  dragHandle: {
-    cursor: "grab",
-  },
-  box: {
-    boxSizing: "border-box",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    inlineSize: list["--oxy-list-selection-size"],
-    blockSize: list["--oxy-list-selection-size"],
-    borderStyle: "solid",
-    borderWidth: list["--oxy-list-selection-outline-width"],
-    borderRadius: list["--oxy-list-selection-radius"],
-    borderColor: color["--oxy-color-on-surface-variant"],
-    color: color["--oxy-color-on-primary"],
-    "--oxy-icon-size": list["--oxy-list-selection-size"],
-    transitionProperty: "background-color, border-color",
-    transitionDuration: duration.effectsFast,
-    transitionTimingFunction: easing.effectsFast,
-  },
-  boxSelected: {
-    borderColor: color["--oxy-color-primary"],
-    backgroundColor: color["--oxy-color-primary"],
-  },
-  boxDisabled: {
-    borderColor: disabledContent,
-  },
-  boxSelectedDisabled: {
-    borderColor: "transparent",
-    backgroundColor: disabledContent,
-    color: color["--oxy-color-surface"],
   },
 });
 
@@ -167,7 +111,6 @@ export function GridListItem<T extends object>({
   ...props
 }: GridListItemProps<T>) {
   const isActionable = props.onAction !== undefined || props.href !== undefined;
-  const isUnstyled = useUnstyled(unstyled);
   const styled = useStyled(
     { className, classNames, unstyled },
     {
@@ -190,40 +133,13 @@ export function GridListItem<T extends object>({
         const leading: ReactNode = (state.allowsDragging || showsCheckbox) && (
           <>
             {state.allowsDragging && (
-              <Button
-                slot="drag"
-                data-slot="drag-handle"
-                className={styled.slot("dragHandle", state, [
-                  styles.control,
-                  focusRing.root,
-                  styles.dragHandle,
-                ])}
-              >
-                <GlyphIcon glyph="dragIndicator" />
-              </Button>
+              <DragHandle className={styled.slot("dragHandle", state, controlStyles.dragHandle)} />
             )}
             {showsCheckbox && (
-              <Checkbox
-                slot="selection"
-                data-slot="selection"
-                className={styled.slot("selection", state, [styles.control, focusRing.root])}
-              >
-                {({ isSelected, isDisabled }) =>
-                  !isUnstyled && (
-                    <span
-                      aria-hidden
-                      {...stylex.props(
-                        styles.box,
-                        isSelected && styles.boxSelected,
-                        isDisabled &&
-                          (isSelected ? styles.boxSelectedDisabled : styles.boxDisabled),
-                      )}
-                    >
-                      {isSelected && <GlyphIcon glyph="check" />}
-                    </span>
-                  )
-                }
-              </Checkbox>
+              <SelectionCheckbox
+                unstyled={unstyled}
+                className={styled.slot("selection", state, controlStyles.selection)}
+              />
             )}
           </>
         );
