@@ -74,6 +74,7 @@ function buttonStyles(variants: ButtonVariants, state: ButtonRenderProps) {
 - State comes either from the render state passed to the style function or from React Aria data attributes as StyleX conditions (`":is([data-pressed])"`). Use the attribute when a CSS transition has to run between states, as with the shape morph on press.
 - Motion uses `duration` and `easing` from `@oxy/motion/motion.stylex`: spatial springs for size and shape, effects springs for color and opacity. These already honour `prefers-reduced-motion` and the `motion.enabled` token.
 - Shared building blocks live in `src/styles`: `focusRing` (mandatory M3 focus ring on `data-focus-visible`), `stateLayerStyles` (hover, focus and pressed overlays), `touchTarget` (48px minimum in comfortable density), `tones`, `densities`.
+- Anything that looks like a common button builds on `src/button/styles.ts` (`buttonVariants`, `buttonStyles`) and `buttonLayers`, as `ToggleButton` does. A container that joins buttons (connected `ToggleButtonGroup`, `SplitButton`) provides its orientation through `ConnectedContext`; the buttons then swap their inner corners for the size's `inner-radius` and turn fully round while selected or expanded.
 
 ### 5. The component
 
