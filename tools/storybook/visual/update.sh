@@ -3,7 +3,7 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-image="mcr.microsoft.com/playwright:$(cd "$root/tools/storybook" && node -p "require('@playwright/test/package.json').version")-noble"
+image="mcr.microsoft.com/playwright:v$(cd "$root/tools/storybook" && node -p "require('@playwright/test/package.json').version")-noble"
 
 cd "$root"
 bun run storybook:build

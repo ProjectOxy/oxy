@@ -29,10 +29,13 @@
       "name": "@oxy/material-theme",
       "version": "0.0.0",
       "dependencies": {
+        "@material/material-color-utilities": "^0.4.0",
+        "@oxy/motion": "workspace:*",
         "@oxy/tokens": "workspace:*",
       },
       "devDependencies": {
         "@stylexjs/stylex": "catalog:",
+        "jsdom": "^30.1.1",
       },
       "peerDependencies": {
         "@stylexjs/stylex": "catalog:",
@@ -145,7 +148,6 @@
         "@oxy/utilities": "workspace:*",
       },
       "devDependencies": {
-        "@material/material-color-utilities": "^0.4.0",
         "@playwright/test": "1.63.0",
         "@storybook/addon-a11y": "^10.6.0",
         "@storybook/addon-docs": "^10.6.0",

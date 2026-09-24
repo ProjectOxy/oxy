@@ -7,7 +7,7 @@ React component library on top of [React Aria Components](https://react-spectrum
 | Package               | Purpose                                                                            |
 | --------------------- | ---------------------------------------------------------------------------------- |
 | `@oxy/tokens`         | Primitive, semantic and component tokens, `createTheme`, build-time contrast check |
-| `@oxy/material-theme` | Material Design 3 Expressive theme built on the tokens (`createTheme`)             |
+| `@oxy/material-theme` | M3 Expressive theme from a seed color (`createMaterialTheme`) and a neutral base   |
 | `@oxy/motion`         | Motion helpers for StyleX, spring → `linear()`, Motion gestures (`/gestures`)      |
 | `@oxy/icons`          | Material Symbols icon component                                                    |
 | `@oxy/utilities`      | Token-driven utility class layer                                                   |
@@ -54,12 +54,12 @@ Stories live next to their component (`packages/*/src/**/*.stories.tsx`); founda
 
 | Global      | Values                              | Effect                                                                                    |
 | ----------- | ----------------------------------- | ----------------------------------------------------------------------------------------- |
-| `theme`     | `light`, `dark`                     | Color scheme: `dark` applies `materialDarkTheme` from `@oxy/material-theme`               |
+| `theme`     | `light`, `dark`                     | Color scheme passed to `createMaterialTheme` from `@oxy/material-theme`                   |
 | `direction` | `ltr`, `rtl`                        | `dir` on `<html>` and on the story frame, so logical properties and portals flip together |
-| `seed`      | Baseline, Ocean, Forest, …          | Seed color of the Material scheme; non-baseline seeds are generated on the fly            |
+| `seed`      | Baseline, Ocean, Forest, …          | Seed color of the Material scheme, generated on the fly                                   |
 | `locale`    | `en-US`, `de-DE`, `ru-RU`, `ar-EG`… | Passed to React Aria `I18nProvider`; RTL locales also flip React Aria keyboard behaviour  |
 
-`tools/storybook/src/oxy-provider.tsx` is a stand-in for the `OxyProvider` planned in `@oxy/ui` (theme on a subtree + `I18nProvider`). It keeps the same props (`locale`, `scheme`, `seed`) so the decorator only needs its import swapped once the core lands; seed-based schemes come from `@material/material-color-utilities` and are turned into a theme with `createTheme` from `@oxy/tokens`, whose `vars` are applied inline on the subtree.
+`tools/storybook/src/oxy-provider.tsx` is a stand-in for the `OxyProvider` planned in `@oxy/ui` (theme on a subtree + `I18nProvider`). It keeps the same props (`locale`, `scheme`, `seed`) so the decorator only needs its import swapped once the core lands; the theme comes from `createMaterialTheme` and its `vars` are applied inline on the subtree.
 
 Tag a story with `no-visual` to keep it out of the screenshot suite (for example, stories that depend on timers or randomness).
 
@@ -70,7 +70,7 @@ Tag a story with `no-visual` to keep it out of the screenshot suite (for example
 ## CI checks
 
 - **rac-coverage** compares the component exports of the installed `react-aria-components` with the exports of `@oxy/ui`. Contexts, hooks, layout classes and `UNSTABLE_*` exports are skipped automatically; deliberate exclusions (providers, `Collection`, `Virtualizer`, …) live in `tools/checks/rac-coverage.config.ts`. Until the component groups of stage 4 exist the job reports the missing list as a warning instead of failing: flip `enforce: true` in the config (or run with `--strict`) to make it red. The config also fails when an ignored name stops being exported or gets wrapped, so the exclusion list cannot go stale.
-- **token-contrast** runs `checkContrast` from `@oxy/tokens` over the themes listed in `tools/checks/contrast.config.ts` (the default theme and `materialDarkTheme` today; add new themes there) and fails when any `on-X` / `X` pair is below WCAG AA (4.5:1).
+- **token-contrast** runs `checkContrast` from `@oxy/tokens` over the themes listed in `tools/checks/contrast.config.ts` (the default theme plus the Material and neutral themes in light/dark × every contrast level; add new themes there) and fails when any `on-X` / `X` pair is below WCAG AA (4.5:1).
 - **Pages** (`.github/workflows/pages.yml`) publishes the static Storybook to GitHub Pages on every push to `main`.
 
 ## Architecture notes
@@ -83,6 +83,7 @@ Tag a story with `no-visual` to keep it out of the screenshot suite (for example
 - `createTheme(overrides, base?)` returns `vars` to set as inline style on any subtree. It re-declares every token aliasing an override, so component tokens follow the theme, and nested themes inherit what they do not override.
 - Motion tokens (`motion.duration.*`, `motion.easing.*`, `motion.spring.*`, `motion.enabled`) live in `@oxy/tokens`. `bun run --cwd packages/motion generate` writes `motion.stylex.ts`: `duration` and `easing` consts for StyleX, springs converted to CSS `linear()` easings, and `--oxy-motion-allowed`, which drops to `0` under `prefers-reduced-motion`. Every `duration` const is multiplied by `--oxy-motion-enabled` and `--oxy-motion-allowed`, so `createTheme({ motion: { enabled: "0" } })` or the user's reduced-motion setting turns motion off on any subtree. Themes that override springs add `springVars(theme.tokens.motion.spring)` to their vars.
 - `presence.fade`, `presence.scale` and `presence.slide` animate React Aria `data-entering` / `data-exiting`. Motion is an optional peer used only by `@oxy/motion/gestures` (`springTransition`, `animateSpring`) for gesture physics, so it never reaches bundles that skip that entry point.
+- `createMaterialTheme({ seed, scheme, contrast, overrides })` builds the color roles from a seed with `@material/material-color-utilities` (2025 spec, tonal spot; `contrast` is `standard`, `medium` or `high`), adds the M3 Expressive motion scheme and applies `overrides` last. `createNeutralTheme({ scheme, contrast, overrides })` is the brand-from-scratch base: a monochrome scheme, system font, small radii, flat shadows and non-bouncy springs. Both declare every semantic token plus the spring curves, so either one is complete on any subtree, including one nested inside the other.
 - Styles are written with logical properties so RTL needs no separate theme.
 - Cascade order is fixed with CSS layers: StyleX layers (`oxy.priority*`) hold component base styles and variants, `utilities` comes last so utility classes always win.
 - Shared StyleX compiler options live in `stylex.config.ts`; `vp pack` compiles each package, and `tools/css` collects the CSS of all packages into one file.

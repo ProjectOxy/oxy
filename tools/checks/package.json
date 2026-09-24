@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "rac-coverage": "bun --preload ./stylex-runtime-stub.ts src/cli/rac-coverage.ts",
-    "contrast": "bun src/cli/contrast.ts"
+    "contrast": "bun --preload ./stylex-runtime-stub.ts src/cli/contrast.ts"
   },
   "dependencies": {
     "@oxy/material-theme": "workspace:*",
