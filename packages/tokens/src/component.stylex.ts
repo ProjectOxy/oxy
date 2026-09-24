@@ -429,3 +429,43 @@ export const emptyState = stylex.defineVars({
   "--oxy-empty-state-icon-container-radius": "var(--oxy-radius-full)",
   "--oxy-empty-state-actions-gap": "var(--oxy-space-sm)",
 });
+
+export const colorThumb = stylex.defineVars({
+  "--oxy-color-thumb-size": "24px",
+  "--oxy-color-thumb-dragging-size": "32px",
+  "--oxy-color-thumb-border-width": "2px",
+  "--oxy-color-thumb-border-color": "var(--oxy-color-surface-container-lowest)",
+  "--oxy-color-thumb-elevation": "var(--oxy-elevation-level1)",
+});
+
+export const colorArea = stylex.defineVars({
+  "--oxy-color-area-size": "256px",
+  "--oxy-color-area-radius": "var(--oxy-radius-lg)",
+});
+
+export const colorSlider = stylex.defineVars({
+  "--oxy-color-slider-track-height": "24px",
+  "--oxy-color-slider-track-radius": "var(--oxy-radius-full)",
+  "--oxy-color-slider-vertical-length": "200px",
+});
+
+export const colorSwatch = stylex.defineVars({
+  "--oxy-color-swatch-xs-size": "24px",
+  "--oxy-color-swatch-sm-size": "32px",
+  "--oxy-color-swatch-md-size": "40px",
+  "--oxy-color-swatch-lg-size": "48px",
+  "--oxy-color-swatch-xl-size": "64px",
+  "--oxy-color-swatch-square-radius": "var(--oxy-radius-sm)",
+  "--oxy-color-swatch-outline-color": "var(--oxy-color-outline-variant)",
+  "--oxy-color-swatch-outline-width": "1px",
+  "--oxy-color-swatch-selected-ring-width": "2px",
+  "--oxy-color-swatch-selected-ring-color": "var(--oxy-color-on-surface)",
+  "--oxy-color-swatch-selected-gap-color": "var(--oxy-color-surface-container-lowest)",
+  "--oxy-color-swatch-picker-gap": "var(--oxy-space-sm)",
+});
+
+export const colorChecker = stylex.defineVars({
+  "--oxy-color-checker-size": "16px",
+  "--oxy-color-checker-color": "var(--oxy-color-surface-container-highest)",
+  "--oxy-color-checker-background": "var(--oxy-color-surface-container-lowest)",
+});
