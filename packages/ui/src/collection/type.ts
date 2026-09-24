@@ -6,7 +6,9 @@ type TypeRole =
   | "body-medium"
   | "body-small"
   | "label-large"
+  | "label-medium"
   | "label-small"
+  | "title-medium"
   | "title-small";
 
 const role = (name: TypeRole) => ({
@@ -22,6 +24,8 @@ export const typeScale = stylex.create({
   bodyMedium: role("body-medium"),
   bodySmall: role("body-small"),
   labelLarge: role("label-large"),
+  labelMedium: role("label-medium"),
   labelSmall: role("label-small"),
+  titleMedium: role("title-medium"),
   titleSmall: role("title-small"),
 });

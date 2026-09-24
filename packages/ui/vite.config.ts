@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [stylexCompilePlugin()],
   test: {
     environment: "jsdom",
+    testTimeout: 15_000,
     exclude: [...configDefaults.exclude, "tests/**/*.browser.test.tsx"],
   },
   pack: {

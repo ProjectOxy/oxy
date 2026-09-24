@@ -26,6 +26,11 @@ const day = (name: RegExp) => {
   expect(rest).toHaveLength(0);
   return match!;
 };
+const only = (role: string) => {
+  const [match, ...rest] = document.querySelectorAll<HTMLElement>(`[role="${role}"]`);
+  expect(rest).toHaveLength(0);
+  return match!;
+};
 const nav = (name: string) =>
   within(document.querySelector('[data-slot="header"]') as HTMLElement).getByRole("button", {
     name,
@@ -45,9 +50,9 @@ describe("Calendar keeps the React Aria API", () => {
       />,
     );
 
-    const grid = screen.getByRole("grid");
+    const grid = only("grid");
     expect(ref.current?.contains(grid)).toBe(true);
-    expect(within(grid).getAllByRole("columnheader", { hidden: true })).toHaveLength(7);
+    expect(grid.querySelectorAll("thead th")).toHaveLength(7);
     expect(title().textContent).toBe("February 2025");
 
     fireEvent.click(day(/Friday, February 14, 2025/));
@@ -128,9 +133,9 @@ describe("Calendar keeps the React Aria API", () => {
       </>,
     );
 
-    const [twoMonths, custom] = screen.getAllByRole("application");
-    expect(within(twoMonths!).getAllByRole("grid")).toHaveLength(2);
-    expect(within(custom!).getByRole("grid").textContent).toContain("(12)");
+    const [twoMonths, custom] = document.querySelectorAll<HTMLElement>('[role="application"]');
+    expect(twoMonths!.querySelectorAll('[role="grid"]')).toHaveLength(2);
+    expect(custom!.querySelector('[role="grid"]')!.textContent).toContain("(12)");
     expect(
       within(custom!)
         .getAllByRole("heading", { level: 2, hidden: true })
@@ -181,7 +186,7 @@ describe("Calendar styling", () => {
       />,
     );
 
-    const root = screen.getByRole("application");
+    const root = only("application");
     expect(classesOf(root).has("tertiary")).toBe(false);
     expect(classesOf(root).has("compact")).toBe(false);
     expect(classesOf(root).has("rounded-xl")).toBe(true);
@@ -189,7 +194,7 @@ describe("Calendar styling", () => {
     expect(classesOf(title()).has("type-title-large")).toBe(true);
     expect(classesOf(nav("Previous")).has("text-primary")).toBe(true);
     expect(classesOf(nav("Next")).has("text-secondary")).toBe(true);
-    expect(classesOf(screen.getByRole("grid")).has("w-full")).toBe(true);
+    expect(classesOf(only("grid")).has("w-full")).toBe(true);
     expect(classesOf(day(/February 12, 2025/)).has("text-on-primary")).toBe(true);
     expect(classesOf(day(/February 13, 2025/)).has("text-on-surface")).toBe(true);
   });
@@ -230,7 +235,7 @@ describe("Calendar styling", () => {
       </OxyProvider>,
     );
 
-    const root = screen.getByRole("application");
+    const root = only("application");
     expect(root.className).toBe("p-md");
     expect(title().className).toBe("type-title-medium");
     expect(slotOf(day(/February 12, 2025/), "day")).toBeNull();
@@ -248,20 +253,18 @@ describe("month and year pickers", () => {
       </Calendar>,
     );
 
-    const [month, year] = screen
-      .getAllByRole("button")
-      .filter((button) => button.getAttribute("aria-haspopup") === "listbox");
+    const [month, year] = document.querySelectorAll('button[aria-haspopup="listbox"]');
     expect(month!.textContent).toContain("Feb");
     expect(year!.textContent).toContain("2025");
 
     fireEvent.click(month!);
     fireEvent.click(screen.getByRole("option", { name: "Jun" }));
-    expect(screen.getByRole("grid").getAttribute("aria-label")).toContain("June 2025");
+    expect(only("grid").getAttribute("aria-label")).toContain("June 2025");
 
     fireEvent.click(year!);
     expect(screen.getAllByRole("option")).toHaveLength(5);
     fireEvent.click(screen.getByRole("option", { name: "2027" }));
-    expect(screen.getByRole("grid").getAttribute("aria-label")).toContain("June 2027");
+    expect(only("grid").getAttribute("aria-label")).toContain("June 2027");
   });
 
   test("render props still receive the picker's aria props", () => {

@@ -22,10 +22,12 @@ const describedBy = (element: Element) =>
     .split(" ")
     .map((id) => document.getElementById(id)?.textContent)
     .join(" ");
-const trigger = () =>
-  screen
-    .getAllByRole("button", { hidden: true })
-    .find((button) => button.getAttribute("aria-haspopup"))!;
+const trigger = () => document.querySelector<HTMLElement>("button[aria-haspopup]")!;
+const dialog = () => document.querySelector<HTMLElement>('[role="dialog"]')!;
+const dayIn = (container: HTMLElement, name: RegExp) =>
+  [...container.querySelectorAll<HTMLElement>('[role="gridcell"] > [role="button"]')].find(
+    (element) => name.test(element.getAttribute("aria-label") ?? ""),
+  )!;
 
 describe("DateField keeps the React Aria API", () => {
   test("labels the segments, describes them and submits the value", () => {
@@ -157,12 +159,12 @@ describe("DatePicker keeps the React Aria API", () => {
     render(<DatePicker label="Date" defaultValue={parseDate("2025-02-12")} onChange={onChange} />);
 
     fireEvent.click(trigger());
-    const dialog = screen.getByRole("dialog");
-    expect(within(dialog).getByRole("grid")).toBeTruthy();
+    const popup = dialog();
+    expect(popup.querySelector('[role="grid"]')).toBeTruthy();
 
-    fireEvent.click(within(dialog).getByRole("button", { name: /February 20, 2025/ }));
+    fireEvent.click(dayIn(popup, /February 20, 2025/));
     expect(onChange).toHaveBeenCalledWith(new CalendarDate(2025, 2, 20));
-    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(document.querySelector('[role="dialog"]')).toBeNull();
     expect(
       segments(screen.getByRole("group", { name: "Date" })).map((part) => part.textContent),
     ).toEqual(["2", "20", "2025"]);
@@ -185,13 +187,13 @@ describe("DatePicker keeps the React Aria API", () => {
       />,
     );
 
-    const dialog = screen.getByRole("dialog");
-    const calendar = within(dialog).getByRole("application");
+    const popup = dialog();
+    const calendar = popup.querySelector<HTMLElement>('[role="application"]')!;
     expect(classesOf(calendar).has("bg-surface")).toBe(true);
     for (const modifier of ["tertiary", "dense"])
       expect(classesOf(calendar).has(modifier)).toBe(false);
-    expect(classesOf(dialog).has("p-sm")).toBe(true);
-    expect(classesOf(dialog.parentElement!).has("rounded-xl")).toBe(true);
+    expect(classesOf(popup).has("p-sm")).toBe(true);
+    expect(classesOf(popup.parentElement!).has("rounded-xl")).toBe(true);
     expect(classesOf(trigger()).has("text-secondary")).toBe(true);
   });
 
@@ -203,9 +205,9 @@ describe("DatePicker keeps the React Aria API", () => {
     );
 
     fireEvent.click(trigger());
-    const calendar = within(screen.getByRole("dialog")).getByRole("application");
+    const calendar = dialog().querySelector<HTMLElement>('[role="application"]')!;
     expect(calendar.className).toBe("");
-    expect(within(calendar).getAllByRole("grid")).toHaveLength(1);
+    expect(calendar.querySelectorAll('[role="grid"]')).toHaveLength(1);
   });
 });
 
@@ -235,9 +237,9 @@ describe("DateRangePicker keeps the React Aria API", () => {
     );
 
     fireEvent.click(trigger());
-    const dialog = screen.getByRole("dialog");
-    fireEvent.click(within(dialog).getByRole("button", { name: /^Tuesday, February 4, 2025$/ }));
-    fireEvent.click(within(dialog).getByRole("button", { name: /^Thursday, February 6, 2025/ }));
+    const popup = dialog();
+    fireEvent.click(dayIn(popup, /^Tuesday, February 4, 2025$/));
+    fireEvent.click(dayIn(popup, /^Thursday, February 6, 2025/));
 
     expect(onChange).toHaveBeenCalledWith({
       start: new CalendarDate(2025, 2, 4),

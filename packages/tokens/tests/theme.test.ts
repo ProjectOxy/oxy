@@ -36,6 +36,13 @@ describe("createTheme", () => {
       "--oxy-chip-padding-inline": "var(--oxy-space-lg)",
       "--oxy-card-padding": "var(--oxy-space-lg)",
       "--oxy-text-field-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-separator-inset": "var(--oxy-space-lg)",
+      "--oxy-tabs-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-disclosure-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-disclosure-gap": "var(--oxy-space-lg)",
+      "--oxy-navigation-item-horizontal-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-navigation-drawer-headline-padding-inline": "var(--oxy-space-lg)",
+      "--oxy-app-bar-title-padding-inline": "var(--oxy-space-lg)",
       "--oxy-table-cell-padding-inline": "var(--oxy-space-lg)",
     });
     expect(resolveTokens(theme.tokens).get("card.padding")).toBe("24px");

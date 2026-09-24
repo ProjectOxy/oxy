@@ -1,0 +1,15 @@
+export {
+  Tab,
+  TabList,
+  tabListVariants,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  type TabListProps,
+  type TabListVariants,
+  type TabPanelProps,
+  type TabPanelsProps,
+  type TabProps,
+  type TabSlot,
+  type TabsProps,
+} from "./tabs.tsx";
