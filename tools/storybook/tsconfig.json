@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": [".storybook", "src", "stories", "visual"],
+  "include": [".storybook", "src", "stories", "tests", "visual"],
   "exclude": ["visual/__screenshots__", "visual/test-results", "visual/report"],
   "references": [
     { "path": "../../packages/tokens" },
