@@ -4,12 +4,14 @@ export interface RacCoverageConfig {
   enforce: boolean;
   ignore: readonly string[];
   ignorePatterns: readonly RegExp[];
+  pending: readonly string[];
 }
 
 export interface RacCoverageReport {
   required: string[];
   wrapped: string[];
   missing: string[];
+  pending: string[];
   wrappedButIgnored: string[];
   unknownIgnores: string[];
 }
@@ -38,7 +40,7 @@ export function componentNames(moduleExports: Record<string, unknown>) {
 export function coverageReport(
   racExports: Record<string, unknown>,
   uiExports: Record<string, unknown>,
-  { ignore, ignorePatterns }: RacCoverageConfig,
+  { ignore, ignorePatterns, pending }: RacCoverageConfig,
 ): RacCoverageReport {
   const racComponents = componentNames(racExports);
   const wrappedSet = new Set(componentNames(uiExports));
@@ -46,11 +48,15 @@ export function coverageReport(
     ignore.includes(name) || ignorePatterns.some((pattern) => pattern.test(name));
 
   const required = racComponents.filter((name) => !ignored(name));
+  const unwrapped = required.filter((name) => !wrappedSet.has(name));
   return {
     required,
     wrapped: required.filter((name) => wrappedSet.has(name)),
-    missing: required.filter((name) => !wrappedSet.has(name)),
-    wrappedButIgnored: racComponents.filter((name) => ignored(name) && wrappedSet.has(name)),
-    unknownIgnores: ignore.filter((name) => !racComponents.includes(name)),
+    missing: unwrapped.filter((name) => !pending.includes(name)),
+    pending: unwrapped.filter((name) => pending.includes(name)),
+    wrappedButIgnored: racComponents.filter(
+      (name) => (ignored(name) || pending.includes(name)) && wrappedSet.has(name),
+    ),
+    unknownIgnores: [...ignore, ...pending].filter((name) => !racComponents.includes(name)),
   };
 }

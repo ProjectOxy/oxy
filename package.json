@@ -20,9 +20,16 @@
     "visual": "vp run @oxy/storybook#visual",
     "visual:update": "tools/storybook/visual/update.sh",
     "rac-coverage": "vp run @oxy/checks#rac-coverage",
-    "contrast": "vp run @oxy/checks#contrast"
+    "contrast": "vp run @oxy/checks#contrast",
+    "size": "vp run @oxy/checks#size",
+    "changeset": "changeset",
+    "version": "changeset version && bun install --lockfile-only",
+    "release:prepare": "node tools/release/src/cli/prepare-manifests.ts",
+    "release:pack": "bun run release:prepare && changeset pack --out-dir dist/packages",
+    "release": "bun run build && bun run release:prepare && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.3",
     "@stylexjs/unplugin": "catalog:",
     "@types/node": "^26.1.1",
     "typescript": "catalog:",
@@ -36,7 +43,7 @@
     "packageManager": {
       "name": "bun",
       "version": "1.4.2",
-      "onFail": "download"
+      "onFail": "warn"
     }
   },
   "engines": {

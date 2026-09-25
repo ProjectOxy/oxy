@@ -26,6 +26,9 @@
       "path": "tools/checks"
     },
     {
+      "path": "tools/release"
+    },
+    {
       "path": "tools/storybook"
     },
     {

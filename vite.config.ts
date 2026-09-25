@@ -15,6 +15,7 @@ export default defineConfig({
       "packages/*",
       "packages/*/vite.browser.config.ts",
       "tools/checks",
+      "tools/release",
       "tools/storybook/vitest.config.ts",
     ],
   },

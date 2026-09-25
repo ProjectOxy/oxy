@@ -1,11 +1,17 @@
 name: Setup
 description: Install Node.js, Bun and the workspace dependencies
+inputs:
+  registry-url:
+    description: npm registry to authenticate against with NODE_AUTH_TOKEN (publishing only)
+    required: false
+    default: ""
 runs:
   using: composite
   steps:
     - uses: actions/setup-node@v5
       with:
         node-version: 24
+        registry-url: ${{ inputs.registry-url }}
     - uses: oven-sh/setup-bun@v2
       with:
         bun-version: 1.4.2

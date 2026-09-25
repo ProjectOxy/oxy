@@ -1,0 +1,13 @@
+{
+  "name": "@oxy/release",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Prepares the package manifests of the workspace for npm publishing",
+  "type": "module",
+  "scripts": {
+    "prepare-manifests": "node src/cli/prepare-manifests.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1"
+  }
+}

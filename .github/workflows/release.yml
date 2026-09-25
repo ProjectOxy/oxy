@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup
+        with:
+          registry-url: https://registry.npmjs.org
+      - name: Publish only when the NPM_TOKEN secret exists
+        id: npm
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            echo "publish-script=bun run release" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice title=release::NPM_TOKEN is not set: packages are versioned but not published."
+          fi
+      - name: Version packages or publish them
+        uses: changesets/action@v2
+        with:
+          version-script: bun run version
+          publish-script: ${{ steps.npm.outputs.publish-script }}
+          commit-message: "chore: version packages"
+          pr-title: "chore: version packages"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

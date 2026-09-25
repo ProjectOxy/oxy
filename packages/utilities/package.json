@@ -1,6 +1,6 @@
 {
   "name": "@oxy/utilities",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Token-driven utility class layer for Oxy UI",
   "license": "MIT",
   "repository": {

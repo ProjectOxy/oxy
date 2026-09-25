@@ -1,6 +1,6 @@
 {
   "name": "@oxy/motion",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Motion tokens and animation helpers for Oxy UI",
   "license": "MIT",
   "repository": {
