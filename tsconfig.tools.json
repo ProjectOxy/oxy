@@ -8,7 +8,8 @@
     "vite.config.ts",
     "packages/*/vite.config.ts",
     "packages/*/vite.browser.config.ts",
-    "tools/*/vite.config.ts"
+    "tools/*/vite.config.ts",
+    "tools/*/vitest.config.ts"
   ],
   "references": [
     {

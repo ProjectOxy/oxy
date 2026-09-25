@@ -72,6 +72,10 @@ The decorator wraps every story in `OxyProvider` from `@oxy/ui`; `tools/storyboo
 
 Tag a story with `no-visual` to keep it out of the screenshot suite (for example, stories that depend on timers or randomness).
 
+### Token playground
+
+**Foundations/Token playground** renders the whole library next to a theme editor. The panel changes the seed, scheme and contrast, and edits any token (raw values or `{references}`), with a color picker for color tokens. Every change rebuilds the theme and reaches every component at once. The preview lists one story per component from `packages/ui/src/*/*.stories.tsx` (`Trigger`, `Inline`, `Variants` or `Default`, whichever exists first), so a new component appears there without extra code. Export copies or downloads the result in one of two forms: options for `createMaterialTheme` (seed, scheme, contrast and the edited tokens as `overrides`), or overrides for `createTheme` (every token that differs from the defaults). The playground is tagged `no-visual`, because each component story already has its own screenshots.
+
 ## Utility classes
 
 `@oxy/utilities` generates atomic classes from the same token source as the components. Every class reads a token variable, so a theme on any subtree changes the utilities too.
