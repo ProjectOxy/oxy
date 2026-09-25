@@ -2,11 +2,12 @@
   "name": "@oxy/checks",
   "version": "0.0.0",
   "private": true,
-  "description": "CI checks: React Aria coverage of @oxy/ui and token contrast",
+  "description": "CI checks: React Aria coverage of @oxy/ui, token contrast and bundle size",
   "type": "module",
   "scripts": {
     "rac-coverage": "bun --preload ./stylex-runtime-stub.ts src/cli/rac-coverage.ts",
-    "contrast": "bun --preload ./stylex-runtime-stub.ts src/cli/contrast.ts"
+    "contrast": "bun --preload ./stylex-runtime-stub.ts src/cli/contrast.ts",
+    "size": "size-limit"
   },
   "dependencies": {
     "@oxy/material-theme": "workspace:*",
@@ -15,10 +16,12 @@
     "react-aria-components": "catalog:"
   },
   "devDependencies": {
+    "@size-limit/preset-small-lib": "^14.0.0",
     "@stylexjs/stylex": "catalog:",
     "@types/bun": "^1.4.2",
     "@types/react": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "size-limit": "^14.0.0"
   }
 }

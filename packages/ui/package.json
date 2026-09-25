@@ -1,6 +1,6 @@
 {
   "name": "@oxy/ui",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "React Aria components styled as Material Design 3 Expressive",
   "license": "MIT",
   "repository": {

@@ -154,3 +154,4 @@ Write a `Default` story plus one story per axis the component has (variants × t
 - [ ] Focus ring and, for interactive parts, state layer and touch target.
 - [ ] Full React Aria API: props, `ref`, render props, data attributes, slot contexts.
 - [ ] Unit, integration and browser tests; stories; visual baselines updated.
+- [ ] A changeset (`bun run changeset`) describing the change for the `@oxy/ui` changelog; raise the size budgets in `tools/checks/.size-limit.ts` in the same PR if the component grows past them.

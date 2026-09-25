@@ -30,6 +30,14 @@ jobs:
         with:
           name: oxy-css
           path: dist/oxy.css
+      - name: Bundle size and tree-shaking
+        run: bun run size
+      - name: Pack the npm tarballs
+        run: bun run release:pack
+      - uses: actions/upload-artifact@v4
+        with:
+          name: npm-packages
+          path: dist/packages
 
   storybook:
     runs-on: ubuntu-latest

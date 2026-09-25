@@ -30,15 +30,42 @@ test("reports missing wrappers and stale ignores", () => {
     enforce: true,
     ignore: ["Provider", "Old", "Gone"],
     ignorePatterns: [],
+    pending: [],
   });
   expect(report.required).toEqual(["Button", "Slider"]);
   expect(report.missing).toEqual(["Slider"]);
+  expect(report.pending).toEqual([]);
   expect(report.wrappedButIgnored).toEqual(["Old"]);
   expect(report.unknownIgnores).toEqual(["Gone"]);
 });
 
-test("every ignored name is a real react-aria-components component", () => {
+test("keeps pending wrappers out of the missing list until they are wrapped", () => {
+  const racExports = {
+    Button: Forwarded,
+    Token: Forwarded,
+    TokenField: Forwarded,
+    Tree: Forwarded,
+  };
+  const uiExports = { Button: () => null, Tree: () => null };
+  const report = coverageReport(racExports, uiExports, {
+    enforce: true,
+    ignore: [],
+    ignorePatterns: [],
+    pending: ["Token", "TokenField", "Tree", "Later"],
+  });
+  expect(report.required).toEqual(["Button", "Token", "TokenField", "Tree"]);
+  expect(report.missing).toEqual([]);
+  expect(report.pending).toEqual(["Token", "TokenField"]);
+  expect(report.wrappedButIgnored).toEqual(["Tree"]);
+  expect(report.unknownIgnores).toEqual(["Later"]);
+});
+
+test("every ignored or pending name is a real react-aria-components component", () => {
   expect(coverageReport(rac, {}, config).unknownIgnores).toEqual([]);
+});
+
+test("the config enforces coverage of the installed react-aria-components", () => {
+  expect(config.enforce).toBe(true);
 });
 
 test("the installed react-aria-components exposes the spec components", () => {

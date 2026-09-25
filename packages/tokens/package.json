@@ -1,6 +1,6 @@
 {
   "name": "@oxy/tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Primitive, semantic and component design tokens for Oxy UI",
   "license": "MIT",
   "repository": {

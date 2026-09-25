@@ -2,6 +2,8 @@
 
 React component library on top of [React Aria Components](https://react-spectrum.adobe.com/react-aria/), styled with [StyleX](https://stylexjs.com) to look like Material Design 3 Expressive out of the box and fully re-skinnable through tokens, variant classes, utilities, slots and an unstyled mode.
 
+Storybook: <https://projectoxy.github.io/oxy/>. The Pages workflow deploys it from `main` once GitHub Pages is enabled for the repository (Settings → Pages → Source: GitHub Actions); until then the `storybook-static` artifact of the latest CI run on `main` is the same build.
+
 ## Packages
 
 | Package               | Purpose                                                                               |
@@ -15,11 +17,12 @@ React component library on top of [React Aria Components](https://react-spectrum
 
 Private workspaces under `tools/`:
 
-| Workspace         | Purpose                                                                                   |
-| ----------------- | ----------------------------------------------------------------------------------------- |
-| `tools/css`       | Compiles the StyleX output of every package into a single static file, `dist/oxy.css`     |
-| `tools/storybook` | Storybook (Vite builder) for every component plus the Playwright visual regression suite  |
-| `tools/checks`    | CI checks: React Aria coverage of `@oxy/ui` and WCAG contrast of the semantic color pairs |
+| Workspace         | Purpose                                                                                             |
+| ----------------- | --------------------------------------------------------------------------------------------------- |
+| `tools/css`       | Compiles the StyleX output of every package into a single static file, `dist/oxy.css`               |
+| `tools/storybook` | Storybook (Vite builder) for every component plus the Playwright visual regression suite            |
+| `tools/checks`    | CI checks: React Aria coverage of `@oxy/ui`, WCAG contrast of the semantic color pairs, bundle size |
+| `tools/release`   | Rewrites the package manifests for npm (`publishConfig`, `workspace:` and `catalog:` ranges)        |
 
 ## Requirements
 
@@ -42,8 +45,12 @@ bun run storybook        # Storybook dev server on http://localhost:6006
 bun run storybook:build  # static Storybook in tools/storybook/storybook-static
 bun run visual           # visual regressions against the static build (needs the Playwright image, see below)
 bun run visual:update    # rebuild Storybook and re-render every baseline inside the Playwright Docker image
-bun run rac-coverage     # which react-aria-components components still lack an @oxy/ui wrapper
+bun run rac-coverage     # every react-aria-components component has an @oxy/ui wrapper (or is listed as pending)
 bun run contrast         # WCAG AA check of the semantic on-X / X color pairs
+bun run size             # size-limit budgets of the built packages and the CSS (run after bun run build)
+
+bun run changeset        # describe a user-facing change for the next release
+bun run release:pack     # npm tarballs of every publishable package in dist/packages (after bun run build)
 ```
 
 Inside a package, `vp pack` builds it and `vp pack --watch` rebuilds on change.
@@ -193,14 +200,25 @@ Every `@oxy/ui` component wraps a React Aria component and keeps its whole API. 
 
 ## CI checks
 
-- **rac-coverage** compares the component exports of the installed `react-aria-components` with the exports of `@oxy/ui`. Contexts, hooks, layout classes and `UNSTABLE_*` exports are skipped automatically; deliberate exclusions (providers, `Collection`, `Virtualizer`, …) live in `tools/checks/rac-coverage.config.ts`. Until the component groups of stage 4 exist the job reports the missing list as a warning instead of failing: flip `enforce: true` in the config (or run with `--strict`) to make it red. The config also fails when an ignored name stops being exported or gets wrapped, so the exclusion list cannot go stale.
+- **rac-coverage** compares the component exports of the installed `react-aria-components` with the exports of `@oxy/ui` and fails when a component has no wrapper (`enforce: true` in `tools/checks/rac-coverage.config.ts`). Contexts, hooks, layout classes and `UNSTABLE_*` exports are skipped automatically; deliberate exclusions (providers, the deprecated `Section`, `Collection`, `Virtualizer`, …) live in `ignore`, and components that are known to be missing wait in `pending`, reported as a warning until they are wrapped. The job also fails when an ignored or pending name stops being exported or gets wrapped, so neither list can go stale. A `react-aria-components` upgrade that adds a component therefore turns the job red until the wrapper lands or the name is parked in `pending`.
 - **token-contrast** runs `checkContrast` from `@oxy/tokens` over the themes listed in `tools/checks/contrast.config.ts` (the default theme plus the Material and neutral themes in light/dark × every contrast level; add new themes there) and fails when any `on-X` / `X` pair is below WCAG AA (4.5:1).
-- **Pages** (`.github/workflows/pages.yml`) publishes the static Storybook to GitHub Pages on every push to `main`.
+- **size** (`tools/checks/.size-limit.ts`, a step of the `verify` job) bundles the built `dist` entry points with Rolldown the way a consumer's bundler would, peers external, and fails when a budget is exceeded. `import { Button } from "@oxy/ui"` shares its budget with `@oxy/ui/button`, so a side effect that drags the whole barrel into a single-component import shows up as a size regression. Budgets sit about 10 % above the measured size; raise them in the same PR as the change that needs it. The step also measures `dist/oxy.css` and `@oxy/utilities/utilities.css`.
+- **Pages** (`.github/workflows/pages.yml`) publishes the static Storybook to GitHub Pages on every push to `main`; the CI `verify` job additionally uploads the npm tarballs of every publishable package as the `npm-packages` artifact.
+
+## Release
+
+Versions and changelogs are managed with [Changesets](https://github.com/changesets/changesets); the six `@oxy/*` packages are a `fixed` group, so they always share one version.
+
+1. A PR with a user-facing change adds a changeset: `bun run changeset` picks the packages and the bump and writes a file into `.changeset/` that goes into the PR.
+2. On every push to `main` the Release workflow (`.github/workflows/release.yml`, `changesets/action`) collects the pending changesets into a "chore: version packages" PR that bumps the versions, writes the `CHANGELOG.md` files and syncs `bun.lock` (`bun run version`).
+3. Merging that PR runs `bun run release`: build, `bun run release:prepare`, `changeset publish`. Publishing happens only when the `NPM_TOKEN` repository secret exists; without it the workflow versions and stops with a notice, so nothing leaves the repository until the owner adds the token. Git tags and GitHub releases are created by the action after a publish.
+
+`release:prepare` (`tools/release`) rewrites every publishable `package.json` in place the way `bun publish` would: `publishConfig.exports` and `publishConfig.bin` replace the source-pointing `exports`/`bin`, `workspace:*` becomes the sibling's version and `catalog:` the version from the root catalog. Changesets publishes and packs with npm, which understands none of the three. `bun run release:pack` runs the same preparation and `changeset pack`, which is what CI uploads; restore the manifests afterwards with `git checkout -- packages/*/package.json` (in CI the checkout is disposable). The root `devEngines.packageManager.onFail` is `warn` rather than `download` so npm can run inside the workspace for those two commands; Vite+ still picks Bun from the same field.
 
 ## Architecture notes
 
 - ESM only. Every package sets `sideEffects: false` and exposes one export per component so consumers tree-shake at the component level.
-- `exports` maps point to source files while developing (`devExports`); `publishConfig.exports` swaps them to `dist` on publish. `vp pack` keeps both in sync.
+- `exports` maps point to source files while developing (`devExports`); `publishConfig.exports` swaps them to `dist` on publish. `vp pack` keeps both in sync, and `bun run release:prepare` applies the swap for npm (see [Release](#release)).
 - Tokens have one typed source in `packages/tokens/src`: `primitives.ts` (palettes, scales), `semantic.ts` and `component.ts`. Values may alias other semantic or component tokens with `{color.primary}`, which becomes `var(--oxy-color-primary)`.
 - `bun run --cwd packages/tokens generate` writes `semantic.stylex.ts` and `component.stylex.ts` (`stylex.defineVars` with explicit names like `--oxy-color-primary`, stable across builds). A test fails when they are stale, and the build fails when an `on-X` / `X` color pair is below WCAG AA.
 - Components import only `@oxy/tokens/semantic.stylex` and `@oxy/tokens/component.stylex`; primitives are plain values in `@oxy/tokens/primitives` for theme authors and never become CSS variables.
